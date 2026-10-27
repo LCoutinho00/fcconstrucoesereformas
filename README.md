@@ -9,3 +9,6 @@ Site estático: `index.html` + `assets/` (CSS, JS, imagens e vídeos). Sem build
 - Estilos: `assets/css/style.css`.
 
 Deploy: Vercel (projeto estático, sem framework).
+
+Cache: CSS/JS são referenciados com `?v=AAAAMMDDhhmm` no `index.html`. Ao alterar esses arquivos, atualize o número
+para que os navegadores baixem a versão nova (o `vercel.json` revalida HTML/CSS/JS e guarda imagens por 1 dia).
