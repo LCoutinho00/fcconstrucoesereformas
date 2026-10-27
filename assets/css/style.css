@@ -104,7 +104,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--bg); }
 .loader__inner { width: min(360px, 80vw); text-align: center; }
 .loader__logo { width: 150px; margin: 0 auto 28px; overflow: visible; }
-.loader__tri { fill: none; stroke: #8b8d92; stroke-width: 5; stroke-dasharray: 600; stroke-dashoffset: 600; }
+.loader__tri { fill: none; stroke: #8b8d92; stroke-width: 5; stroke-dasharray: 640; stroke-dashoffset: 640; }
 .loader__fc { font-family: var(--display); font-weight: 900; font-style: italic; font-size: 96px; fill: var(--red); letter-spacing: -4px; opacity: 0; }
 .loader__meta { display: flex; justify-content: space-between; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--ink-dim); margin-bottom: 12px; }
 .loader__count b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -203,10 +203,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media (max-width: 900px) {
   .hero { height: 200vh; }
-  .hero__vignette { background: linear-gradient(0deg, rgba(13,14,16,.96) 0%, rgba(13,14,16,.62) 42%, rgba(13,14,16,.05) 70%), linear-gradient(180deg, rgba(13,14,16,.6), transparent 22%); }
-  .hero__content { bottom: 64px; right: var(--gutter); }
+  .hero__vignette { background: linear-gradient(0deg, rgba(13,14,16,.94) 0%, rgba(13,14,16,.55) 38%, rgba(13,14,16,0) 62%), linear-gradient(180deg, rgba(13,14,16,.55), transparent 18%); }
+  .hero__content { bottom: 56px; right: var(--gutter); max-width: none; }
+  .hero__title { font-size: clamp(40px, 12vw, 64px); }
   .hero__scroll, .hero__top { display: none; }
-  .hero__card { top: 88px; bottom: auto; right: var(--gutter); padding: 14px 16px; min-width: 0; }
+  .hero__card { display: none; }
   .hero__card b { font-size: 18px; }
 }
 
@@ -461,4 +462,3 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .ring__pin { position: relative; }
 }
 @media (max-width: 700px) { .footer { padding-bottom: 96px; } .lightbox__thumbs { scrollbar-width: none; } }
-@media (max-width: 900px) and (max-height: 720px) { .hero__card { display: none; } }

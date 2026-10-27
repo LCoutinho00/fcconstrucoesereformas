@@ -109,7 +109,7 @@
       const p = shown / 100;
       count.textContent = Math.round(shown);
       bar.style.transform = `scaleX(${p})`;
-      tri.style.strokeDashoffset = 600 * (1 - clamp(p * 1.25));
+      tri.style.strokeDashoffset = 640 * (1 - clamp(p * 1.25));
       fc.style.opacity = clamp((p - 0.55) * 3);
       if (shown < 100) requestAnimationFrame(tick);
       else setTimeout(finishLoader, 250);
