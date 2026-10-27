@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FC Construção & Reforma — Construímos com precisão desde 1992 | Brasília-DF</title>
+  <meta name="description" content="FC Construção & Reforma: construção, reforma e acabamento de alto padrão em Brasília desde 1992. Equipe própria, mestre de obras à frente e entrega com qualidade.">
+  <meta name="theme-color" content="#0d0e10">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FC Construção & Reforma — desde 1992">
+  <meta property="og:description" content="Construção, reforma e acabamento de alto padrão em Brasília. Do terreno vazio à chave na mão.">
+  <meta property="og:image" content="assets/img/shis-ql-6/shis-ql-6_06.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GeneralContractor",
+    "name": "FC Construção & Reforma",
+    "foundingDate": "1992",
+    "founder": { "@type": "Person", "name": "Flávio Coutinho", "jobTitle": "Mestre de Obras" },
+    "telephone": "+55-61-99253-1753",
+    "email": "fcreformaeconstrucoes@gmail.com",
+    "areaServed": "Brasília - DF",
+    "address": { "@type": "PostalAddress", "addressLocality": "Brasília", "addressRegion": "DF", "addressCountry": "BR" }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__logo" viewBox="0 0 220 200" aria-hidden="true">
+        <path class="loader__tri" d="M110 8 L212 192 L8 192 Z" />
+        <text x="110" y="160" text-anchor="middle" class="loader__fc">FC</text>
+      </svg>
+      <div class="loader__meta">
+        <span>Construção & Reforma</span>
+        <span class="loader__count"><b id="loaderCount">0</b>%</span>
+      </div>
+      <div class="loader__bar"><i id="loaderBar"></i></div>
+    </div>
+    <div class="loader__panel"></div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><span></span></div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <a href="#topo" class="brand" aria-label="FC Construção & Reforma — início">
+      <svg viewBox="0 0 220 200" class="brand__mark" aria-hidden="true">
+        <path d="M110 8 L212 192 L8 192 Z" />
+        <text x="110" y="160" text-anchor="middle">FC</text>
+      </svg>
+      <span class="brand__name">Construção<br>& Reforma</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#historia" data-n="01">História</a>
+      <a href="#obras" data-n="02">Obras</a>
+      <a href="#qualidade" data-n="03">Entrega</a>
+      <a href="#servicos" data-n="04">Serviços</a>
+      <a href="#contato" data-n="05">Contato</a>
+    </nav>
+    <a class="btn btn--sm btn--red header__cta magnetic" href="https://wa.me/5561992531753?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FC%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">Orçamento</a>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main id="topo">
+
+    <!-- HERO 3D -->
+    <section class="hero" id="hero">
+      <div class="hero__sticky">
+        <canvas id="scene" class="hero__canvas" aria-hidden="true"></canvas>
+        <div class="hero__fallback" aria-hidden="true"></div>
+        <div class="hero__vignette" aria-hidden="true"></div>
+
+        <div class="hero__content">
+          <p class="eyebrow hero__eyebrow"><span class="dot"></span> Brasília · DF — desde 1992</p>
+          <h1 class="hero__title">
+            <span class="line"><span>Construímos</span></span>
+            <span class="line"><span>com <em class="rotator" id="rotator"><span class="is-on">precisão.</span><span>confiança.</span><span>história.</span><span>qualidade.</span></em></span></span>
+          </h1>
+          <p class="hero__lead">Mais de três décadas erguendo casas, reformando apartamentos e entregando obras de alto padrão — com o mestre de obras à frente de cada detalhe.</p>
+          <div class="hero__actions">
+            <a href="#obras" class="btn btn--light magnetic">Ver obras <i class="arrow">→</i></a>
+            <a href="https://wa.me/5561992531753" target="_blank" rel="noopener" class="btn btn--ghost magnetic">Falar no WhatsApp</a>
+          </div>
+        </div>
+
+        <ol class="hero__stages" aria-label="Etapas da obra">
+          <li class="is-active"><b>01</b> Fundação</li>
+          <li><b>02</b> Estrutura</li>
+          <li><b>03</b> Vedação</li>
+          <li><b>04</b> Acabamento</li>
+          <li><b>05</b> Entrega</li>
+        </ol>
+
+        <div class="hero__done" aria-hidden="true">
+          <p class="eyebrow">Etapa 05 · Entrega</p>
+          <p class="hero__done-title">Obra entregue.<br><span>Chave na mão.</span></p>
+        </div>
+
+        <div class="hero__scroll" aria-hidden="true"><span>Role para construir</span><i></i></div>
+        <div class="hero__build" aria-hidden="true"><span>Obra</span> <b id="buildPct">0</b>%</div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Alvenaria</span><i>✦</i><span>Pintura</span><i>✦</i><span>Gesso & Drywall</span><i>✦</i><span>Elétrica</span><i>✦</i><span>Hidráulica</span><i>✦</i><span>Acabamentos</span><i>✦</i><span>Carpintaria</span><i>✦</i><span>Esquadrias</span><i>✦</i><span>Ferragens</span><i>✦</i>
+        <span>Alvenaria</span><i>✦</i><span>Pintura</span><i>✦</i><span>Gesso & Drywall</span><i>✦</i><span>Elétrica</span><i>✦</i><span>Hidráulica</span><i>✦</i><span>Acabamentos</span><i>✦</i><span>Carpintaria</span><i>✦</i><span>Esquadrias</span><i>✦</i><span>Ferragens</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- INTRO / STATS -->
+    <section class="intro section" aria-labelledby="introTitle">
+      <div class="container">
+        <p class="eyebrow">[ Quem somos ]</p>
+        <h2 class="intro__title split" id="introTitle">Uma construtora de família, feita de obra entregue, cliente satisfeito e palavra cumprida.</h2>
+        <div class="stats">
+          <div class="stat"><b class="count" data-to="1992">1992</b><span>Ano de fundação</span></div>
+          <div class="stat"><b><span class="count" data-to="34">34</span>+</b><span>Anos de mercado</span></div>
+          <div class="stat"><b class="count" data-to="9">9</b><span>Especialidades sob o mesmo time</span></div>
+          <div class="stat"><b>DF</b><span>Lago Sul, Sudoeste, Asa Sul e região</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTÓRIA (horizontal) -->
+    <section class="history" id="historia" aria-labelledby="histTitle">
+      <div class="history__pin">
+        <div class="history__head container">
+          <p class="eyebrow">[01] Nossa história</p>
+          <h2 class="h2" id="histTitle">Três décadas<br>de obra feita.</h2>
+        </div>
+        <div class="history__track">
+          <article class="chapter chapter--year">
+            <span class="chapter__year">1992</span>
+            <h3>O começo</h3>
+            <p>A FC Construção & Reforma nasce em Brasília pelas mãos de <strong>Flávio Coutinho</strong>, mestre de obras. A proposta era simples e continua a mesma: executar cada serviço de forma eficaz, ágil e com a responsabilidade de quem assina o que entrega.</p>
+          </article>
+          <article class="chapter chapter--photo">
+            <figure class="chapter__portrait">
+              <img src="assets/img/sobre/sobre_02.jpg" alt="Flávio Coutinho, fundador e mestre de obras da FC" loading="lazy" width="454" height="848">
+              <figcaption><b>Flávio Coutinho</b><span>Fundador, diretor e mestre de obras</span></figcaption>
+            </figure>
+            <p class="chapter__note">Responsável direto pelo crescimento da FC, com total responsabilidade e credibilidade junto a clientes e colaboradores.</p>
+          </article>
+          <article class="chapter">
+            <span class="chapter__year">Equipe</span>
+            <h3>Gente que sabe fazer</h3>
+            <p>Uma equipe própria de profissionais experientes, capacitados para qualquer serviço da construção civil — da demolição e alvenaria à carpintaria, elétrica, hidráulica e acabamento fino.</p>
+            <img class="chapter__img" src="assets/img/copia-unique/copia-unique_08-sm.jpg" alt="Profissional da FC trabalhando em reforma" loading="lazy">
+          </article>
+          <article class="chapter">
+            <span class="chapter__year">Lago Sul</span>
+            <h3>Residências de alto padrão</h3>
+            <p>Casas no Lago Sul (SHIS QI 15 e SHIS QL 6) com áreas gourmet em granito, piscinas, cascatas em pedra e fachadas que se tornaram cartão de visita da FC.</p>
+            <img class="chapter__img" src="assets/img/shis-ql-6/shis-ql-6_06-sm.jpg" alt="Residência com piscina no Lago Sul" loading="lazy">
+          </article>
+          <article class="chapter">
+            <span class="chapter__year">Sudoeste</span>
+            <h3>Apartamentos e coberturas</h3>
+            <p>No Unique Duplex, guarda-corpos em vidro, varanda gourmet com churrasqueira revestida e bancadas em granito preto: acabamento milimétrico em altura.</p>
+            <img class="chapter__img" src="assets/img/unique/unique_08-sm.jpg" alt="Varanda gourmet do Unique Duplex" loading="lazy">
+          </article>
+          <article class="chapter">
+            <span class="chapter__year">Via W3</span>
+            <h3>Da demolição à chave</h3>
+            <p>Na SHIGS 707 a obra começou no chão batido: demolição, laje treliçada, instalações completas e banheiros em porcelanato marmorizado. Obra inteira, uma só equipe.</p>
+            <img class="chapter__img" src="assets/img/copia-unique/copia-unique_18-sm.jpg" alt="Laje treliçada em execução" loading="lazy">
+          </article>
+          <article class="chapter chapter--year chapter--now">
+            <span class="chapter__year">Hoje</span>
+            <h3>O mesmo compromisso</h3>
+            <p>Novas técnicas, novos materiais — e a mesma regra de 1992: obra bem feita, no prazo, com o dono presente.</p>
+            <a href="#contato" class="btn btn--red magnetic">Começar minha obra <i class="arrow">→</i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATEMENT REVEAL -->
+    <section class="reveal" aria-labelledby="revealTitle">
+      <div class="reveal__pin">
+        <h2 class="reveal__title" id="revealTitle"><span>Do terreno vazio</span><span>à chave na mão.</span></h2>
+        <div class="reveal__media">
+          <img src="assets/img/shis-qi-15/shis-qi-15_07.jpg" alt="Residência entregue pela FC com piscina e grandes vãos de vidro" loading="lazy">
+        </div>
+        <p class="reveal__caption">SHIS QI 15 · Lago Sul</p>
+      </div>
+    </section>
+
+    <!-- OBRAS -->
+    <section class="works" id="obras" aria-labelledby="worksTitle">
+      <div class="works__head container">
+        <p class="eyebrow">[02] Obras</p>
+        <h2 class="h2 split" id="worksTitle">Projetos que viraram endereço.</h2>
+        <p class="works__sub">Selecionamos algumas obras entregues. Clique para abrir a galeria completa.</p>
+      </div>
+
+      <div class="works__stack">
+        <article class="work" data-gallery="qi15">
+          <div class="work__bg"><img src="assets/img/shis-qi-15/shis-qi-15_01.jpg" alt="Área gourmet em granito na residência SHIS QI 15" loading="lazy"></div>
+          <div class="work__body container">
+            <span class="work__num">[01]</span>
+            <h3 class="work__title">Uma casa que<br>recebe bem.</h3>
+            <p class="work__meta">Residência · SHIS QI 15 · Lago Sul</p>
+            <p class="work__text">Área gourmet com bancadas em granito, churrasqueira revestida em pedra, cascata e piscina. Fachada com pórticos e portão em vidro.</p>
+            <button class="btn btn--light magnetic" data-open="qi15">Ver galeria <i class="arrow">↗</i></button>
+          </div>
+        </article>
+
+        <article class="work" data-gallery="ql6">
+          <div class="work__bg"><img src="assets/img/shis-ql-6/shis-ql-6_09.jpg" alt="Pátio e piscina da residência SHIS QL 6" loading="lazy"></div>
+          <div class="work__body container">
+            <span class="work__num">[02]</span>
+            <h3 class="work__title">Branco, luz<br>e água.</h3>
+            <p class="work__meta">Residência · SHIS QL 6 · Lago Sul</p>
+            <p class="work__text">Fachada branca com beirais marcados, escada helicoidal, pátio em pedra e piscina. Jardins integrados aos caminhos de serviço.</p>
+            <button class="btn btn--light magnetic" data-open="ql6">Ver galeria <i class="arrow">↗</i></button>
+          </div>
+        </article>
+
+        <article class="work" data-gallery="unique">
+          <div class="work__bg"><img src="assets/img/unique/unique_09.jpg" alt="Varanda gourmet do Unique Duplex com churrasqueira revestida" loading="lazy"></div>
+          <div class="work__body container">
+            <span class="work__num">[03]</span>
+            <h3 class="work__title">Detalhe<br>em altura.</h3>
+            <p class="work__meta">Apartamento · Unique Duplex · Sudoeste</p>
+            <p class="work__text">Guarda-corpo em vidro, escada, marcenaria, piso em madeira e varanda gourmet com churrasqueira em pastilha e granito preto.</p>
+            <button class="btn btn--light magnetic" data-open="unique">Ver galeria <i class="arrow">↗</i></button>
+          </div>
+        </article>
+
+        <article class="work" data-gallery="w3">
+          <div class="work__bg"><img src="assets/img/copia-unique/copia-unique_17.jpg" alt="Banheiro com porcelanato marmorizado na obra SHIGS 707" loading="lazy"></div>
+          <div class="work__body container">
+            <span class="work__num">[04]</span>
+            <h3 class="work__title">Do chão<br>ao mármore.</h3>
+            <p class="work__meta">Obra completa · SHIGS 707 · Via W3</p>
+            <p class="work__text">Demolição, laje treliçada com EPS, instalações, banheiros em porcelanato marmorizado com nichos e fachada com portão de garagem.</p>
+            <button class="btn btn--light magnetic" data-open="w3">Ver galeria <i class="arrow">↗</i></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- GALERIA 3D -->
+    <section class="ring" aria-labelledby="ringTitle">
+      <div class="ring__pin">
+        <div class="ring__head">
+          <p class="eyebrow">[ Galeria 360° ]</p>
+          <h2 class="h2" id="ringTitle">Arraste e gire.</h2>
+        </div>
+        <div class="ring__stage" id="ringStage">
+          <div class="ring__spin" id="ring"></div>
+        </div>
+        <p class="ring__hint">Arraste para girar · clique para ampliar</p>
+      </div>
+    </section>
+
+    <!-- QUALIDADE DE ENTREGA -->
+    <section class="quality section" id="qualidade" aria-labelledby="qualTitle">
+      <div class="container">
+        <div class="quality__head">
+          <p class="eyebrow">[03] Qualidade de entrega</p>
+          <h2 class="h2 split" id="qualTitle">A obra só termina quando o detalhe está certo.</h2>
+        </div>
+
+        <div class="compare-wrap">
+          <div class="compare" id="compare" style="--pos:50%">
+            <img src="assets/img/copia-unique/copia-unique_05.jpg" alt="Depois: fachada concluída com portão de garagem" class="compare__after">
+            <div class="compare__before"><img src="assets/img/copia-unique/copia-unique_20.jpg" alt="Antes: terreno em demolição"></div>
+            <span class="compare__tag compare__tag--l">Antes</span>
+            <span class="compare__tag compare__tag--r">Depois</span>
+            <button class="compare__handle" aria-label="Arraste para comparar antes e depois"><i>⟷</i></button>
+            <input type="range" min="0" max="100" value="50" class="compare__range" aria-label="Comparar antes e depois">
+          </div>
+          <div class="compare__text">
+            <p class="eyebrow">Mesma obra · SHIGS 707</p>
+            <h3>Antes e depois, sem filtro.</h3>
+            <p>Arraste a barra: de entulho e terra batida à fachada pronta, portão instalado e pintura entregue. É o mesmo endereço — e a mesma equipe do começo ao fim.</p>
+          </div>
+        </div>
+
+        <div class="pillars">
+          <article class="pillar"><span>01</span><h3>Mestre de obras presente</h3><p>O fundador acompanha a execução. Decisão rápida, responsabilidade direta.</p></article>
+          <article class="pillar"><span>02</span><h3>Equipe própria</h3><p>Profissionais experientes em todas as frentes: menos terceirização, mais padrão.</p></article>
+          <article class="pillar"><span>03</span><h3>Agilidade nos prazos</h3><p>Planejamento por etapas para que uma frente não trave a outra.</p></article>
+          <article class="pillar"><span>04</span><h3>Acabamento fino</h3><p>Pedras, porcelanatos, nichos, marcenaria e pintura com régua e esquadro.</p></article>
+          <article class="pillar"><span>05</span><h3>Obra limpa</h3><p>Canteiro organizado e entrega com o ambiente pronto para morar.</p></article>
+          <article class="pillar"><span>06</span><h3>Vistoria de entrega</h3><p>Percorremos cada ambiente com o cliente antes de passar a chave.</p></article>
+        </div>
+
+        <div class="delivery">
+          <div class="delivery__text">
+            <p class="eyebrow">Vistoria final</p>
+            <h3 class="h3">Veja uma entrega como ela é.</h3>
+            <p>Vídeos reais de obra entregue: cozinha com ilha em granito, marcenaria, iluminação embutida, painéis e acabamentos conferidos ambiente por ambiente.</p>
+            <ol class="process">
+              <li><b>01</b><div><h4>Visita técnica</h4><p>Entendemos o espaço, o projeto e o que você precisa.</p></div></li>
+              <li><b>02</b><div><h4>Orçamento e planejamento</h4><p>Etapas, materiais e prazos definidos com clareza.</p></div></li>
+              <li><b>03</b><div><h4>Execução</h4><p>Estrutura, instalações e vedação com equipe própria.</p></div></li>
+              <li><b>04</b><div><h4>Acabamento</h4><p>Revestimentos, pedras, pintura, louças e metais.</p></div></li>
+              <li><b>05</b><div><h4>Entrega</h4><p>Limpeza, vistoria conjunta e chave na mão.</p></div></li>
+            </ol>
+          </div>
+          <div class="delivery__media">
+            <figure class="device device--wide">
+              <video src="assets/video/entrega.mp4" muted loop playsinline preload="none" poster="assets/img/extra/extra_01-sm.jpg" data-autoplay></video>
+              <figcaption>Vistoria de entrega · cozinha integrada</figcaption>
+            </figure>
+            <figure class="device device--phone">
+              <video src="assets/video/acabamento.mp4" muted loop playsinline preload="none" poster="assets/img/extra/extra_01-sm.jpg" data-autoplay></video>
+              <figcaption>Acabamento · painéis e iluminação</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="services section" id="servicos" aria-labelledby="servTitle">
+      <div class="container">
+        <div class="services__head">
+          <p class="eyebrow">[04] Serviços</p>
+          <h2 class="h2 split" id="servTitle">Tudo o que uma obra precisa, num só time.</h2>
+          <p>Demolições, construções, instalações, reformas e todo tipo de serviço relacionado à construção civil.</p>
+        </div>
+        <div class="cards">
+          <article class="card tilt"><img src="assets/img/servicos/servicos_01-sm.jpg" alt="" loading="lazy"><div><span>01</span><h3>Alvenaria</h3><p>Demolições e construções de estruturas em alvenaria.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_02.jpg" alt="" loading="lazy"><div><span>02</span><h3>Pintura</h3><p>Todos os tipos de pintura, emassamento, lixamento e acabamento.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_03.jpg" alt="" loading="lazy"><div><span>03</span><h3>Gesso & Drywall</h3><p>Placas drywall, forros de gesso acartonado, sancas e mais.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_04.jpg" alt="" loading="lazy"><div><span>04</span><h3>Elétrica</h3><p>Instalação completa, luminotécnica, cabeamento de TV e rede, revisão de circuitos.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_05.jpg" alt="" loading="lazy"><div><span>05</span><h3>Hidráulica</h3><p>Instalações hidráulicas completas: água, esgoto e todo o sistema de encanamento.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_06-sm.jpg" alt="" loading="lazy"><div><span>06</span><h3>Acabamentos</h3><p>Assentamento de pisos, pedras, bancadas e instalação de acessórios.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_07.jpg" alt="" loading="lazy"><div><span>07</span><h3>Carpintaria</h3><p>Carpinteiros experientes, com execução precisa e eficiente.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_08.jpg" alt="" loading="lazy"><div><span>08</span><h3>Esquadrias</h3><p>Janelas, portas, portais e alizares instalados conforme o projeto.</p></div></article>
+          <article class="card tilt"><img src="assets/img/servicos/servicos_09.jpg" alt="" loading="lazy"><div><span>09</span><h3>Ferragens</h3><p>Execução e amarração de ferragens para estruturas.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq section" aria-labelledby="faqTitle">
+      <div class="container faq__grid">
+        <div>
+          <p class="eyebrow">[ Dúvidas ]</p>
+          <h2 class="h2" id="faqTitle">Perguntas frequentes</h2>
+          <p class="faq__lead">Não achou sua resposta? Fale direto com a gente.</p>
+          <a class="btn btn--dark magnetic" href="https://wa.me/5561992531753" target="_blank" rel="noopener">Tirar minha dúvida <i class="arrow">→</i></a>
+        </div>
+        <div class="faq__list">
+          <details><summary>Vocês fazem obra completa ou só reforma?</summary><p>Os dois. Executamos desde demolição e construção do zero até reformas pontuais e acabamentos — alvenaria, estrutura, instalações, gesso, pintura, carpintaria e esquadrias.</p></details>
+          <details><summary>Em quais regiões vocês atendem?</summary><p>Atuamos em Brasília e no Distrito Federal, com obras no Lago Sul, Sudoeste, Asa Sul e outras regiões.</p></details>
+          <details><summary>Como funciona o orçamento?</summary><p>Você chama no WhatsApp ou por e-mail, conta o que precisa e agendamos uma visita técnica para entender o espaço e o projeto antes de orçar.</p></details>
+          <details><summary>Quem acompanha a obra no dia a dia?</summary><p>A execução é acompanhada pelo mestre de obras Flávio Coutinho, fundador da empresa, junto com a equipe própria da FC.</p></details>
+          <details><summary>Vocês trabalham com projeto de arquiteto?</summary><p>Sim. Executamos a obra seguindo o projeto do seu arquiteto ou designer, respeitando especificações de materiais, paginações e detalhes.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="contact" id="contato" aria-labelledby="contactTitle">
+      <div class="contact__bg"><img src="assets/img/extra/extra_03.jpg" alt="" loading="lazy"></div>
+      <div class="container contact__grid">
+        <div class="contact__info">
+          <p class="eyebrow">[05] Contato</p>
+          <h2 class="contact__title" id="contactTitle">Vamos construir<br><em>juntos?</em></h2>
+          <ul class="contact__list">
+            <li><span>WhatsApp</span><a href="https://wa.me/5561992531753" target="_blank" rel="noopener">(61) 9 9253-1753</a></li>
+            <li><span>E-mail</span><a href="mailto:fcreformaeconstrucoes@gmail.com">fcreformaeconstrucoes@gmail.com</a></li>
+            <li><span>Atendimento</span><p>Brasília · Distrito Federal</p></li>
+          </ul>
+        </div>
+        <form class="form" id="contactForm" novalidate>
+          <h3>Peça seu orçamento</h3>
+          <label><span>Seu nome</span><input name="nome" required autocomplete="name"></label>
+          <label><span>Tipo de obra</span>
+            <select name="tipo">
+              <option>Construção</option><option>Reforma completa</option><option>Reforma de banheiro / cozinha</option><option>Acabamentos</option><option>Outro serviço</option>
+            </select>
+          </label>
+          <label><span>Bairro / região</span><input name="local" placeholder="Ex.: Lago Sul"></label>
+          <label><span>Conte um pouco sobre a obra</span><textarea name="msg" rows="3"></textarea></label>
+          <button class="btn btn--red btn--block magnetic" type="submit">Enviar pelo WhatsApp <i class="arrow">→</i></button>
+          <p class="form__note">Abre o WhatsApp com sua mensagem pronta.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__giant" aria-hidden="true">FC</div>
+    <div class="container footer__row">
+      <p>© <span id="year">2026</span> FC Construção & Reforma · desde 1992</p>
+      <nav aria-label="Rodapé"><a href="#historia">História</a><a href="#obras">Obras</a><a href="#qualidade">Entrega</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a></nav>
+      <a href="#topo" class="footer__top">Voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <a class="wa-float magnetic" href="https://wa.me/5561992531753" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.2.6 4.4 1.7 6.3L3 29l7.3-1.9c1.8 1 3.8 1.5 5.8 1.5 7 0 12.7-5.6 12.7-12.6S23 3 16 3Zm0 23.1c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-4.3 1.1 1.2-4.2-.3-.4a10.4 10.4 0 0 1-1.6-5.5C5.3 9.8 10.1 5.1 16 5.1s10.6 4.7 10.6 10.5S21.9 26.1 16 26.1Zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.8-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
+  </a>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria de fotos" hidden>
+    <button class="lightbox__close" aria-label="Fechar">×</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Anterior">←</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lightbox__nav lightbox__next" aria-label="Próxima">→</button>
+    <div class="lightbox__thumbs"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
+  <script src="assets/js/main.js" defer></script>
+  <script type="module" src="assets/js/hero3d.js"></script>
+</body>
+</html>
