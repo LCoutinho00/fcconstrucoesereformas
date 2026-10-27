@@ -27,12 +27,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=202610271753">
+  <link rel="stylesheet" href="assets/css/style.css?v=202610271807">
+  <noscript><style>.loader{display:none}.build{display:none}.hero__canvas{display:none}</style></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
+    "@id": "https://fcconstrucoesereformas.vercel.app/#empresa",
     "name": "FC Construção & Reforma",
+    "url": "https://fcconstrucoesereformas.vercel.app/",
+    "image": "https://fcconstrucoesereformas.vercel.app/assets/img/og-image.jpg",
+    "logo": "https://fcconstrucoesereformas.vercel.app/assets/img/icon-192.png",
+    "description": "Construção, reforma e acabamento de alto padrão em Brasília desde 1992.",
     "foundingDate": "1992",
     "founder": { "@type": "Person", "name": "Flávio Coutinho", "jobTitle": "Mestre de Obras" },
     "telephone": "+55-61-99253-1753",
@@ -128,7 +134,7 @@
           <h1 class="hero__title">
             <span class="line"><span>Nossa forma</span></span>
             <span class="line"><span>de construir</span></span>
-            <span class="line"><span>é <em class="rotator" id="rotator"><span class="is-on">precisão.</span><span>confiança.</span><span>história.</span><span>qualidade.</span></em></span></span>
+            <span class="line"><span>é <span class="sr-only">precisão, confiança e qualidade.</span><em class="rotator" id="rotator" aria-hidden="true"><span class="is-on">precisão.</span><span>confiança.</span><span>história.</span><span>qualidade.</span></em></span></span>
           </h1>
           <p class="hero__lead">Mais de três décadas erguendo casas, reformando apartamentos e entregando obras de alto padrão no DF — com o mestre de obras à frente de cada detalhe.</p>
           <div class="hero__actions">
@@ -315,11 +321,11 @@
 
         <div class="compare-wrap">
           <div class="compare" id="compare" style="--pos:50%">
-            <img src="assets/img/copia-unique/copia-unique_05-md.jpg" srcset="assets/img/copia-unique/copia-unique_05-md.jpg 1280w, assets/img/copia-unique/copia-unique_05.jpg 1800w" sizes="100vw" alt="Depois: fachada concluída com portão de garagem" class="compare__after">
-            <div class="compare__before"><img src="assets/img/copia-unique/copia-unique_20.jpg" alt="Antes: terreno em demolição"></div>
+            <img src="assets/img/copia-unique/copia-unique_05-md.jpg" srcset="assets/img/copia-unique/copia-unique_05-md.jpg 1280w, assets/img/copia-unique/copia-unique_05.jpg 1800w" sizes="100vw" loading="lazy" alt="Depois: fachada concluída com portão de garagem" class="compare__after">
+            <div class="compare__before"><img src="assets/img/copia-unique/copia-unique_20.jpg" alt="Antes: terreno em demolição" loading="lazy"></div>
             <span class="compare__tag compare__tag--l">Antes</span>
             <span class="compare__tag compare__tag--r">Depois</span>
-            <button class="compare__handle" aria-label="Arraste para comparar antes e depois"><i>⟷</i></button>
+            <span class="compare__handle" aria-hidden="true"><i>⟷</i></span>
             <input type="range" min="0" max="100" value="50" class="compare__range" aria-label="Comparar antes e depois">
           </div>
           <div class="compare__text">
@@ -476,11 +482,11 @@
     <div class="lightbox__thumbs"></div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="assets/js/main.js?v=202610271753" defer></script>
-  <script src="assets/js/photo-motion.js?v=202610271753" defer></script>
-  <script src="assets/js/build-scrub.js?v=202610271753" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="assets/js/main.js?v=202610271807" defer></script>
+  <script src="assets/js/photo-motion.js?v=202610271807" defer></script>
+  <script src="assets/js/build-scrub.js?v=202610271807" defer></script>
 </body>
 </html>

@@ -101,7 +101,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn--block { width: 100%; }
 
 /* ---------- loader ---------- */
-.loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--bg); }
+.loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--bg); animation: loaderFailsafe .6s ease 7s forwards; }
+/* se o JavaScript falhar, o loader some sozinho depois de 7 s */
+@keyframes loaderFailsafe { to { opacity: 0; visibility: hidden; } }
 .loader__inner { width: min(360px, 80vw); text-align: center; }
 .loader__logo { width: 150px; margin: 0 auto 28px; overflow: visible; }
 .loader__tri { fill: none; stroke: #8b8d92; stroke-width: 5; stroke-dasharray: 640; stroke-dashoffset: 640; }
@@ -127,8 +129,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: 18px var(--gutter);
   transition: transform .6s var(--ease), background .4s, padding .4s;
 }
-.header.is-scrolled { background: rgba(13, 14, 16, .72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding-top: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+/* o fundo desfocado fica num pseudo-elemento: backdrop-filter no próprio header prenderia o menu fixo (mobile) dentro dele */
+.header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(13, 14, 16, .72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); opacity: 0; transition: opacity .4s; pointer-events: none; }
+.header.is-scrolled::before { opacity: 1; }
+.header.is-scrolled { padding-top: 12px; padding-bottom: 12px; }
+.nav-open .header::before { opacity: 0; }
 .header.is-hidden, .is-loading .header { transform: translateY(-110%); }
+.nav-open .header { transform: none; }
 .brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
 .brand__mark { width: 46px; height: 42px; overflow: visible; }
 .brand__mark path { fill: none; stroke: #8b8d92; stroke-width: 9; }
@@ -529,3 +536,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .build__counter b { font-size: 28px; }
 }
 @media (prefers-reduced-motion: reduce) { .build { height: 200vh; } }
+
+/* ---------- acessibilidade e robustez ---------- */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* eyebrows vermelhos sobre fundo escuro: tom mais claro para contraste AA */
+.history .eyebrow, .works .eyebrow, .ring .eyebrow, .contact .eyebrow, .hero .eyebrow, .build .eyebrow, .chapter--now .eyebrow { color: var(--red-2); }
+/* sem GSAP (CDN fora do ar) ou com movimento reduzido: a linha do tempo vira uma faixa rolável */
+html:not(.has-gsap) .history__pin { height: auto; overflow: visible; padding: clamp(80px, 12vw, 140px) 0; }
+html:not(.has-gsap) .history__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 16px; -webkit-overflow-scrolling: touch; }
+html:not(.has-gsap) .chapter { scroll-snap-align: start; }
+html:not(.has-gsap) .reveal { height: auto; }
+html:not(.has-gsap) .reveal__pin { position: relative; height: 80vh; }
+html:not(.has-gsap) .reveal__media { clip-path: none; }
+html:not(.has-gsap) .reveal__media img { transform: none; }
+html:not(.has-gsap) .reveal__caption { opacity: 1; }
+/* foco visível no comparador antes/depois */
+.compare__range:focus-visible ~ .compare__handle i, .compare:focus-within .compare__handle i { outline: 3px solid var(--red); outline-offset: 3px; }
+/* botão de pausa dos vídeos */
+.device__toggle { position: absolute; right: 12px; top: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; background: rgba(13,14,16,.7); color: #fff; font-size: 14px; display: grid; place-items: center; backdrop-filter: blur(6px); }
+.device__toggle:focus-visible, .lightbox button:focus-visible, .nav a:focus-visible, .btn:focus-visible { outline: 3px solid var(--red-2); outline-offset: 3px; }
+/* menu mobile fechado: fora da navegação por teclado */
+@media (max-width: 900px) { body:not(.nav-open) .nav { visibility: hidden; transition: clip-path .8s var(--ease), visibility 0s .8s; } .nav-open .nav { visibility: visible; transition: clip-path .8s var(--ease); } }

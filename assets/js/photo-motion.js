@@ -1,6 +1,7 @@
 /* FC Construção & Reforma — movimento cinematográfico sobre fotos reais das obras.
-   Cada foto ganha parallax de profundidade, empurrão lento de câmera, nuvens, folhas,
-   água e um feixe de luz; entre as fotos, uma transição com borda de luz. */
+   Cada foto ganha uma aproximação lenta e uniforme (Ken Burns), água ondulando só na piscina,
+   feixe de luz, poeira dourada e granulação; entre as fotos, uma transição com borda de luz.
+   Se o WebGL falhar ou o contexto for perdido, a <img> de baixo continua visível. */
 (() => {
   'use strict';
   const canvas = document.getElementById('photo');
@@ -166,8 +167,10 @@
 
   const dpr = Math.min(devicePixelRatio, 1.5);
   const resize = () => {
-    canvas.width = Math.round(canvas.clientWidth * dpr);
-    canvas.height = Math.round(canvas.clientHeight * dpr);
+    const cw = Math.round(canvas.clientWidth * dpr), ch = Math.round(canvas.clientHeight * dpr);
+    if (cw === canvas.width && ch === canvas.height) return; // ex.: barra de endereço do iOS
+    canvas.width = cw;
+    canvas.height = ch;
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.uniform2f(U.res, canvas.width, canvas.height);
   };
@@ -176,7 +179,10 @@
 
   let visible = true;
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(hero);
-  let started = !document.getElementById('loader');
+  let started = !document.getElementById('loader') || !!(window.FC && window.FC.started);
+  // contexto WebGL perdido (memória da GPU no celular): esconde o canvas e mostra a foto normal
+  let lost = false;
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); lost = true; canvas.classList.remove('is-on'); });
   addEventListener('fc:start', () => { started = true; });
 
   load(0).then(() => {
@@ -189,7 +195,7 @@
       requestAnimationFrame(loop);
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      if (!visible) return;
+      if (!visible || lost) return;
       clock += dt;
       if (started) { intro += (1 - intro) * (reduce ? 1 : 0.025); tShown += dt; }
       mx += ((FC.mouseX || 0) - mx) * 0.05;

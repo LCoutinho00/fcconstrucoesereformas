@@ -9,10 +9,22 @@
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isMobile = () => innerWidth < 900;
 
-  // estado compartilhado com a cena 3D (hero3d.js)
+  // estado compartilhado com o movimento da foto do topo (photo-motion.js)
   const FC = (window.FC = window.FC || { scroll: 0, mouseX: 0, mouseY: 0 });
 
-  const img = (p) => `assets/img/${p}.jpg`;
+  // roda fn a cada quadro só enquanto o elemento estiver na tela
+  const whileVisible = (el, fn) => {
+    let on = false, id = 0;
+    const loop = () => { fn(); id = requestAnimationFrame(loop); };
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !on) { on = true; id = requestAnimationFrame(loop); }
+      else if (!e.isIntersecting && on) { on = false; cancelAnimationFrame(id); }
+    }).observe(el);
+  };
+
+  // fotos ampliadas: versão média (1280px) no celular quando existir
+  const MD = new Set(['copia-unique/copia-unique_05','copia-unique/copia-unique_07','copia-unique/copia-unique_08','copia-unique/copia-unique_09','copia-unique/copia-unique_10','copia-unique/copia-unique_11','copia-unique/copia-unique_12','copia-unique/copia-unique_13','copia-unique/copia-unique_14','copia-unique/copia-unique_15','copia-unique/copia-unique_16','copia-unique/copia-unique_17','extra/extra_01','obras/obras_01','obras/obras_03','obras/obras_04','shis-qi-15/shis-qi-15_01','shis-qi-15/shis-qi-15_02','shis-qi-15/shis-qi-15_03','shis-qi-15/shis-qi-15_04','shis-qi-15/shis-qi-15_05','shis-qi-15/shis-qi-15_06','shis-qi-15/shis-qi-15_07','shis-qi-15/shis-qi-15_08','shis-qi-15/shis-qi-15_09','shis-ql-6/shis-ql-6_01','shis-ql-6/shis-ql-6_02','shis-ql-6/shis-ql-6_03','shis-ql-6/shis-ql-6_04','shis-ql-6/shis-ql-6_05','shis-ql-6/shis-ql-6_06','shis-ql-6/shis-ql-6_07','shis-ql-6/shis-ql-6_08','shis-ql-6/shis-ql-6_09','unique/unique_02','unique/unique_03','unique/unique_04','unique/unique_05','unique/unique_06','unique/unique_07','unique/unique_08','unique/unique_09']);
+  const img = (p) => `assets/img/${p}${innerWidth < 900 && MD.has(p) ? '-md' : ''}.jpg`;
   const sm = (p) => `assets/img/${p}-sm.jpg`;
   const seq = (dir, from, to) => Array.from({ length: to - from + 1 }, (_, i) => `${dir}/${dir}_${String(from + i).padStart(2, '0')}`);
 
@@ -38,6 +50,8 @@
 
   const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  // sem GSAP ou com movimento reduzido, o CSS usa versões estáticas (linha do tempo rolável, imagens abertas)
+  document.documentElement.classList.toggle('has-gsap', hasGsap && !reduce);
 
   /* ---------------- smooth scroll ---------------- */
   let lenis = null;
@@ -60,8 +74,12 @@
     const id = a.getAttribute('href');
     if (id.length < 2 || !$(id)) return;
     e.preventDefault();
-    document.body.classList.remove('nav-open');
-    $('#burger').setAttribute('aria-expanded', 'false');
+    if (document.body.classList.contains('nav-open')) {
+      document.body.classList.remove('nav-open');
+      $('#burger').setAttribute('aria-expanded', 'false');
+      $('#burger').setAttribute('aria-label', 'Abrir menu');
+      lenis?.start();
+    }
     scrollTo(id === '#topo' ? 0 : id);
   }));
 
@@ -93,9 +111,11 @@
     let shown = 0;
     let target = 30;
     const t0 = performance.now();
+    // espera só o essencial (fontes + foto principal), não o site inteiro: os quadros do timelapse carregam depois
+    const heroImg = $('.hero__img');
     const ready = Promise.all([
       document.fonts ? document.fonts.ready : Promise.resolve(),
-      new Promise((r) => (document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }))),
+      heroImg && heroImg.decode ? heroImg.decode().catch(() => {}) : Promise.resolve(),
     ]);
     ready.then(() => (target = 100));
     setTimeout(() => (target = 100), 4500);
@@ -125,6 +145,7 @@
       gsap.from(['.hero__eyebrow', '.hero__lead', '.hero__actions', '.hero__top span'], { y: 30, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.07, delay: 0.4 });
       gsap.fromTo('.hero__media', { clipPath: 'inset(18% 22% 18% 22% round 24px)', scale: 1.08 }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', scale: 1, duration: 1.8, ease: 'expo.inOut' });
     }
+    FC.started = true;
     window.dispatchEvent(new Event('fc:start'));
   }
 
@@ -149,18 +170,19 @@
   const hero = $('#hero');
   const heroContent = $('.hero__content');
   const heroCard = $('.hero__card');
-  const updateHero = () => {
+  let lastFade = -1;
+  whileVisible(hero, () => {
     const r = hero.getBoundingClientRect();
     const total = r.height - innerHeight;
     FC.scroll = total > 0 ? clamp(-r.top / total) : 0;
     const fade = clamp((FC.scroll - 0.15) / 0.6);
+    if (Math.abs(fade - lastFade) < 0.001) return;
+    lastFade = fade;
     heroContent.style.opacity = 1 - fade;
     heroContent.style.transform = `translateY(${-fade * 80}px)`;
     heroContent.style.visibility = fade > 0.99 ? 'hidden' : '';
     heroCard.style.opacity = 1 - clamp(FC.scroll / 0.4);
-    requestAnimationFrame(updateHero);
-  };
-  requestAnimationFrame(updateHero);
+  });
 
   if (finePointer) {
     addEventListener('pointermove', (e) => {
@@ -186,10 +208,16 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  $('#burger').addEventListener('click', (e) => {
-    const open = document.body.classList.toggle('nav-open');
-    e.currentTarget.setAttribute('aria-expanded', String(open));
+  const burger = $('#burger');
+  const setNav = (open) => {
+    document.body.classList.toggle('nav-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
     if (lenis) open ? lenis.stop() : lenis.start();
+  };
+  burger.addEventListener('click', () => setNav(!document.body.classList.contains('nav-open')));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('nav-open')) { setNav(false); burger.focus(); }
   });
 
   // link ativo
@@ -205,14 +233,18 @@
   /* ---------------- cursor + magnetic ---------------- */
   if (finePointer) {
     const cursor = $('.cursor');
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
-    addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy, running = false;
+    // o laço só roda enquanto o cursor está se movendo
     const loop = () => {
       cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
       cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-      requestAnimationFrame(loop);
+      if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.3) requestAnimationFrame(loop);
+      else running = false;
     };
-    loop();
+    addEventListener('pointermove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    });
     document.addEventListener('pointerover', (e) => {
       cursor.classList.toggle('is-hover', !!e.target.closest('a, button, .ring__item, summary, input, select, textarea, .compare'));
     });
@@ -289,10 +321,12 @@
 
     // marquee com velocidade influenciada pelo scroll
     const track = $('.marquee__track');
-    let mx = 0, vel = 0;
+    let mx = 0, vel = 0, half = track.scrollWidth / 2, marqueeOn = false;
+    addEventListener('resize', () => { half = track.scrollWidth / 2; });
+    new IntersectionObserver(([e]) => { marqueeOn = e.isIntersecting; }).observe(track);
     ScrollTrigger.create({ onUpdate: (self) => { vel = clamp(self.getVelocity() / 300, -12, 12); } });
     gsap.ticker.add(() => {
-      const half = track.scrollWidth / 2;
+      if (!marqueeOn) return;
       mx -= 1 + Math.abs(vel);
       vel *= 0.92;
       if (-mx >= half) mx += half;
@@ -412,7 +446,8 @@
       vel = dx * 0.25;
       drag += vel;
     });
-    addEventListener('pointerup', () => { down = false; });
+    // pointercancel: no celular, um scroll vertical que começa no anel cancela o arrasto
+    ['pointerup', 'pointercancel', 'blur'].forEach((ev) => addEventListener(ev, () => { down = false; }));
     ring.addEventListener('click', (e) => {
       const b = e.target.closest('.ring__item');
       if (b && moved < 6) openLightbox('ring', +b.dataset.i);
@@ -420,19 +455,16 @@
 
     const sec = $('.ring');
     let auto = 0;
-    const loop = () => {
+    const spin = () => {
       const r = sec.getBoundingClientRect();
-      const visible = r.bottom > 0 && r.top < innerHeight;
-      if (visible) {
-        const p = clamp(-r.top / Math.max(1, r.height - innerHeight));
-        if (!down) { drag += vel; vel *= 0.94; }
-        if (!reduce) auto += 0.04;
-        const tilt = -8 + Math.sin(p * Math.PI) * 4;
-        ring.style.transform = `translateZ(-${ring.dataset.r * 0.9}px) rotateX(${tilt}deg) rotateY(${-p * 220 + drag + auto}deg)`;
-      }
-      requestAnimationFrame(loop);
+      const p = clamp(-r.top / Math.max(1, r.height - innerHeight));
+      if (!down) { drag += vel; vel *= 0.94; }
+      if (!reduce) auto += 0.04;
+      const tilt = -8 + Math.sin(p * Math.PI) * 4;
+      ring.style.transform = `translateZ(-${ring.dataset.r * 0.9}px) rotateX(${tilt}deg) rotateY(${-p * 220 + drag + auto}deg)`;
     };
-    loop();
+    spin();
+    whileVisible(sec, spin);
   })();
 
   /* ---------------- antes / depois ---------------- */
@@ -452,16 +484,35 @@
   })();
 
   /* ---------------- vídeos: tocar só quando visíveis ---------------- */
+  // com movimento reduzido não tocam sozinhos; sempre há um botão de pausar/tocar
   const vio = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       const v = en.target;
       if (en.isIntersecting) {
         if (v.preload === 'none') { v.preload = 'auto'; v.load(); }
-        v.play().catch(() => {});
+        if (!v.dataset.userPaused) v.play().catch(() => {});
       } else v.pause();
     });
   }, { threshold: 0.25 });
-  $$('video[data-autoplay]').forEach((v) => vio.observe(v));
+  $$('video[data-autoplay]').forEach((v) => {
+    const btn = document.createElement('button');
+    btn.className = 'device__toggle';
+    btn.type = 'button';
+    const sync = () => {
+      btn.textContent = v.paused ? '▶' : '❚❚';
+      btn.setAttribute('aria-label', v.paused ? 'Tocar vídeo' : 'Pausar vídeo');
+    };
+    btn.addEventListener('click', () => {
+      if (v.paused) { delete v.dataset.userPaused; if (v.preload === 'none') { v.preload = 'auto'; v.load(); } v.play().catch(() => {}); }
+      else { v.dataset.userPaused = '1'; v.pause(); }
+    });
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+    sync();
+    v.parentElement.appendChild(btn);
+    if (reduce) v.dataset.userPaused = '1';
+    vio.observe(v);
+  });
 
   /* ---------------- lightbox ---------------- */
   const lb = $('#lightbox');
@@ -485,12 +536,15 @@
     lbThumbs.innerHTML = lbSet.items.map((p, k) => `<button aria-label="Foto ${k + 1}"><img src="${sm(p)}" alt="" loading="lazy"></button>`).join('');
     $$('button', lbThumbs).forEach((b, k) => b.addEventListener('click', () => showLb(k)));
     lb.hidden = false;
+    // o resto da página fica inerte enquanto a galeria está aberta (teclado e leitores de tela)
+    $$('body > *:not(#lightbox)').forEach((el) => { if (!el.inert) { el.inert = true; el.dataset.lbInert = '1'; } });
     lenis?.stop();
     showLb(i);
     $('.lightbox__close', lb).focus();
   }
   function closeLightbox() {
     lb.hidden = true;
+    $$('[data-lb-inert]').forEach((el) => { el.inert = false; delete el.dataset.lbInert; });
     lenis?.start();
     lastFocus?.focus();
   }
@@ -504,6 +558,13 @@
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowRight') showLb(lbIdx + 1);
     if (e.key === 'ArrowLeft') showLb(lbIdx - 1);
+    if (e.key === 'Tab') {
+      // mantém o foco dentro da galeria
+      const f = $$('button', lb).filter((b) => b.offsetParent !== null);
+      const first = f[0], lastB = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); lastB.focus(); }
+      else if (!e.shiftKey && document.activeElement === lastB) { e.preventDefault(); first.focus(); }
+    }
   });
   let sx = 0;
   lb.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
@@ -518,7 +579,8 @@
     const f = e.currentTarget;
     const nome = f.nome.value.trim();
     f.nome.classList.toggle('is-invalid', !nome);
-    if (!nome) { f.nome.focus(); return; }
+    f.nome.setAttribute('aria-invalid', String(!nome));
+    if (!nome) { f.nome.placeholder = 'Informe seu nome para continuar'; f.nome.focus(); return; }
     const linhas = [
       `Olá! Meu nome é ${nome}.`,
       `Tenho interesse em: ${f.tipo.value}.`,
