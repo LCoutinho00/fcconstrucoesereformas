@@ -151,11 +151,15 @@
   const stages = $$('.hero__stages li');
   const pct = $('#buildPct');
   const hero = $('#hero');
+  // ?obra=0.5 fixa o progresso da cena (útil para revisar cada etapa)
+  const forceParam = new URLSearchParams(location.search).get('obra');
+  const forceBuild = forceParam === null ? null : clamp(parseFloat(forceParam) || 0);
   const updateHero = () => {
     const r = hero.getBoundingClientRect();
     const total = r.height - innerHeight;
     FC.scroll = total > 0 ? clamp(-r.top / total) : 0;
     FC.build = Math.max(FC.intro, FC.scroll);
+    if (forceBuild !== null) { FC.build = forceBuild; FC.scroll = forceBuild; }
     pct.textContent = Math.round(FC.build * 100);
     const si = Math.min(stages.length - 1, Math.floor(FC.build * stages.length * 0.999));
     stages.forEach((li, k) => li.classList.toggle('is-active', k === si));

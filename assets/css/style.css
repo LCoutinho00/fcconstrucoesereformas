@@ -198,7 +198,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero__stages li b { font-weight: 700; }
 .hero__stages li.is-active { color: var(--ink); }
 .hero__stages li.is-active::after { width: 56px; background: var(--red); }
-.hero__done { position: absolute; left: 0; right: 0; bottom: clamp(70px, 12vh, 130px); text-align: center; z-index: 2; opacity: 0; pointer-events: none; }
+.hero__done { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(70px, 12vh, 130px); z-index: 2; opacity: 0; pointer-events: none; }
+@media (max-width: 900px) { .hero__done { text-align: center; bottom: 70px; } }
 .hero__done .eyebrow { margin-bottom: 12px; }
 .hero__done-title { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 78%; text-transform: uppercase; font-size: clamp(40px, 6vw, 96px); line-height: .9; letter-spacing: -.02em; }
 .hero__done-title span { color: var(--red); font-style: italic; }
