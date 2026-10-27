@@ -11,7 +11,9 @@
   if (!count) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const dir = innerWidth * Math.min(devicePixelRatio, 2) > 1100 ? 'lg' : 'sm';
-  const src = (i) => `assets/timelapse/${dir}/f${String(i + 1).padStart(3, '0')}.jpg`;
+  // data-version muda sempre que os quadros forem trocados (mesmos nomes de arquivo): evita misturar com quadros antigos do cache
+  const ver = section.dataset.version ? `?v=${section.dataset.version}` : '';
+  const src = (i) => `assets/timelapse/${dir}/f${String(i + 1).padStart(3, '0')}.jpg${ver}`;
   const pct = document.getElementById('buildPct');
   const stages = [...section.querySelectorAll('.build__stages li')];
   const done = section.querySelector('.build__done');

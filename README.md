@@ -12,3 +12,6 @@ Deploy: Vercel (projeto estático, sem framework).
 
 Cache: CSS/JS são referenciados com `?v=AAAAMMDDhhmm` no `index.html`. Ao alterar esses arquivos, atualize o número
 para que os navegadores baixem a versão nova (o `vercel.json` revalida HTML/CSS/JS e guarda imagens por 1 dia).
+Timelapse: os quadros ficam em `assets/timelapse/{lg,sm}/fNNN.jpg`. Ao trocá-los, atualize `data-frames` e
+`data-version` na seção `#build` do `index.html` — os nomes dos arquivos se repetem e, sem a versão, navegadores
+misturariam quadros novos com antigos do cache.
