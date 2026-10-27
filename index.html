@@ -6,12 +6,24 @@
   <title>FC Construção & Reforma — Construímos com precisão desde 1992 | Brasília-DF</title>
   <meta name="description" content="FC Construção & Reforma: construção, reforma e acabamento de alto padrão em Brasília desde 1992. Equipe própria, mestre de obras à frente e entrega com qualidade.">
   <meta name="theme-color" content="#0d0e10">
+  <link rel="canonical" href="https://fcconstrucoesereformas.vercel.app/">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/icon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="FC Construção & Reforma — desde 1992">
+  <meta property="og:site_name" content="FC Construção & Reforma">
+  <meta property="og:url" content="https://fcconstrucoesereformas.vercel.app/">
+  <meta property="og:title" content="FC Construção & Reforma — construímos com precisão desde 1992">
   <meta property="og:description" content="Construção, reforma e acabamento de alto padrão em Brasília. Do terreno vazio à chave na mão.">
-  <meta property="og:image" content="assets/img/shis-ql-6/shis-ql-6_06.jpg">
+  <meta property="og:image" content="https://fcconstrucoesereformas.vercel.app/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Residência entregue pela FC Construção & Reforma em Brasília">
   <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://fcconstrucoesereformas.vercel.app/assets/img/og-image.jpg">
+  <link rel="preload" as="image" href="assets/img/obras/obras_01-md.jpg" imagesrcset="assets/img/obras/obras_01-md.jpg 1280w, assets/img/obras/obras_01.jpg 1800w" imagesizes="100vw">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
@@ -77,7 +89,7 @@
     <section class="hero" id="hero">
       <div class="hero__sticky">
         <div class="hero__media">
-          <img class="hero__img" src="assets/img/shis-ql-6/shis-ql-6_06.jpg" alt="Residência entregue pela FC no SHIS QL 6, Lago Sul: fachada branca, escada helicoidal e piscina" fetchpriority="high">
+          <img class="hero__img" src="assets/img/obras/obras_01-md.jpg" srcset="assets/img/obras/obras_01-md.jpg 1280w, assets/img/obras/obras_01.jpg 1800w" sizes="100vw" alt="Residência entregue pela FC no SHIS QI 15, Lago Sul: fachada com beirais brancos e portão de grade branca" fetchpriority="high" width="1800" height="1350">
           <canvas id="photo" class="hero__canvas" aria-hidden="true"></canvas>
         </div>
         <div class="hero__vignette" aria-hidden="true"></div>
@@ -102,9 +114,10 @@
 
         <aside class="hero__card" aria-label="Obra em destaque">
           <span class="hero__card-num">[01]</span>
-          <b>SHIS QL 6</b>
-          <span>Residência · Lago Sul</span>
-          <button class="hero__card-link" data-open="ql6">Ver galeria ↗</button>
+          <b>SHIS QI 15</b>
+          <span class="hero__card-place">Residência · Lago Sul</span>
+          <button class="hero__card-link" data-open="qi15">Ver galeria ↗</button>
+          <div class="hero__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
         </aside>
 
         <div class="hero__scroll" aria-hidden="true"><span>Role</span><i></i></div>
@@ -148,7 +161,7 @@
           </article>
           <article class="chapter chapter--photo">
             <figure class="chapter__portrait">
-              <img src="assets/img/sobre/sobre_02.jpg" alt="Flávio Coutinho, fundador e mestre de obras da FC" loading="lazy" width="454" height="848">
+              <img src="assets/img/extra/extra_05.jpg" alt="Flávio Coutinho, fundador e mestre de obras da FC, conferindo o projeto na obra" loading="lazy" width="1044" height="1280">
               <figcaption><b>Flávio Coutinho</b><span>Fundador, diretor e mestre de obras</span></figcaption>
             </figure>
             <p class="chapter__note">Responsável direto pelo crescimento da FC, com total responsabilidade e credibilidade junto a clientes e colaboradores.</p>
@@ -192,7 +205,7 @@
       <div class="reveal__pin">
         <h2 class="reveal__title" id="revealTitle"><span>Do terreno vazio</span><span>à chave na mão.</span></h2>
         <div class="reveal__media">
-          <img src="assets/img/shis-qi-15/shis-qi-15_07.jpg" alt="Residência entregue pela FC com piscina e grandes vãos de vidro" loading="lazy">
+          <img src="assets/img/shis-qi-15/shis-qi-15_07-md.jpg" srcset="assets/img/shis-qi-15/shis-qi-15_07-md.jpg 1280w, assets/img/shis-qi-15/shis-qi-15_07.jpg 1800w" sizes="100vw" alt="Residência entregue pela FC com piscina e grandes vãos de vidro" loading="lazy">
         </div>
         <p class="reveal__caption">SHIS QI 15 · Lago Sul</p>
       </div>
@@ -208,7 +221,7 @@
 
       <div class="works__stack">
         <article class="work" data-gallery="qi15">
-          <div class="work__bg"><img src="assets/img/shis-qi-15/shis-qi-15_01.jpg" alt="Área gourmet em granito na residência SHIS QI 15" loading="lazy"></div>
+          <div class="work__bg"><img src="assets/img/shis-qi-15/shis-qi-15_01-md.jpg" srcset="assets/img/shis-qi-15/shis-qi-15_01-md.jpg 1280w, assets/img/shis-qi-15/shis-qi-15_01.jpg 1800w" sizes="100vw" alt="Área gourmet em granito na residência SHIS QI 15" loading="lazy"></div>
           <div class="work__body container">
             <span class="work__num">[01]</span>
             <h3 class="work__title">Uma casa que<br>recebe bem.</h3>
@@ -219,7 +232,7 @@
         </article>
 
         <article class="work" data-gallery="ql6">
-          <div class="work__bg"><img src="assets/img/shis-ql-6/shis-ql-6_09.jpg" alt="Pátio e piscina da residência SHIS QL 6" loading="lazy"></div>
+          <div class="work__bg"><img src="assets/img/shis-ql-6/shis-ql-6_09-md.jpg" srcset="assets/img/shis-ql-6/shis-ql-6_09-md.jpg 1280w, assets/img/shis-ql-6/shis-ql-6_09.jpg 1800w" sizes="100vw" alt="Pátio e piscina da residência SHIS QL 6" loading="lazy"></div>
           <div class="work__body container">
             <span class="work__num">[02]</span>
             <h3 class="work__title">Branco, luz<br>e água.</h3>
@@ -230,7 +243,7 @@
         </article>
 
         <article class="work" data-gallery="unique">
-          <div class="work__bg"><img src="assets/img/unique/unique_09.jpg" alt="Varanda gourmet do Unique Duplex com churrasqueira revestida" loading="lazy"></div>
+          <div class="work__bg"><img src="assets/img/unique/unique_09-md.jpg" srcset="assets/img/unique/unique_09-md.jpg 1280w, assets/img/unique/unique_09.jpg 1800w" sizes="100vw" alt="Varanda gourmet do Unique Duplex com churrasqueira revestida" loading="lazy"></div>
           <div class="work__body container">
             <span class="work__num">[03]</span>
             <h3 class="work__title">Detalhe<br>em altura.</h3>
@@ -241,7 +254,7 @@
         </article>
 
         <article class="work" data-gallery="w3">
-          <div class="work__bg"><img src="assets/img/copia-unique/copia-unique_17.jpg" alt="Banheiro com porcelanato marmorizado na obra SHIGS 707" loading="lazy"></div>
+          <div class="work__bg"><img src="assets/img/copia-unique/copia-unique_17-md.jpg" srcset="assets/img/copia-unique/copia-unique_17-md.jpg 1280w, assets/img/copia-unique/copia-unique_17.jpg 1800w" sizes="100vw" alt="Banheiro com porcelanato marmorizado na obra SHIGS 707" loading="lazy"></div>
           <div class="work__body container">
             <span class="work__num">[04]</span>
             <h3 class="work__title">Do chão<br>ao mármore.</h3>
@@ -277,7 +290,7 @@
 
         <div class="compare-wrap">
           <div class="compare" id="compare" style="--pos:50%">
-            <img src="assets/img/copia-unique/copia-unique_05.jpg" alt="Depois: fachada concluída com portão de garagem" class="compare__after">
+            <img src="assets/img/copia-unique/copia-unique_05-md.jpg" srcset="assets/img/copia-unique/copia-unique_05-md.jpg 1280w, assets/img/copia-unique/copia-unique_05.jpg 1800w" sizes="100vw" alt="Depois: fachada concluída com portão de garagem" class="compare__after">
             <div class="compare__before"><img src="assets/img/copia-unique/copia-unique_20.jpg" alt="Antes: terreno em demolição"></div>
             <span class="compare__tag compare__tag--l">Antes</span>
             <span class="compare__tag compare__tag--r">Depois</span>
@@ -300,6 +313,24 @@
           <article class="pillar"><span>06</span><h3>Vistoria de entrega</h3><p>Percorremos cada ambiente com o cliente antes de passar a chave.</p></article>
         </div>
 
+        <div class="details">
+          <div class="details__head">
+            <p class="eyebrow">Detalhes de acabamento</p>
+            <h3 class="h3">Madeira, luz e<br>marcenaria sob medida.</h3>
+            <p>Painéis em madeira, cobogó metálico, sancas com iluminação embutida e adega retroiluminada — acabamento de apartamento entregue, quadro a quadro.</p>
+            <button class="btn btn--dark magnetic" data-open="apto">Ver todos os detalhes <i class="arrow">↗</i></button>
+          </div>
+          <div class="details__grid">
+            <button class="detail detail--tall" data-open="apto" data-i="2"><img src="assets/img/apto/apto_03.jpg" alt="Adega de parede retroiluminada" loading="lazy" width="380" height="1024"></button>
+            <button class="detail" data-open="apto" data-i="0"><img src="assets/img/apto/apto_01.jpg" alt="Cobogó metálico preto ao lado de painel de madeira" loading="lazy" width="576" height="634"></button>
+            <button class="detail" data-open="apto" data-i="3"><img src="assets/img/apto/apto_04.jpg" alt="Mesa de jantar em madeira com aparador ao fundo" loading="lazy" width="576" height="634"></button>
+            <button class="detail detail--wide" data-open="apto" data-i="4"><img src="assets/img/apto/apto_05.jpg" alt="Sala de estar com forro em madeira e sanca iluminada" loading="lazy" width="576" height="530"></button>
+            <button class="detail detail--tall" data-open="apto" data-i="5"><img src="assets/img/apto/apto_06.jpg" alt="Hall de entrada revestido em madeira com porta preta" loading="lazy" width="396" height="1024"></button>
+            <button class="detail detail--big" data-open="apto" data-i="1"><img src="assets/img/apto/apto_02.jpg" alt="Painel de TV em madeira com sanca de LED" loading="lazy" width="576" height="530"></button>
+          </div>
+          <p class="details__credit">Imagens e vídeo do apartamento: @rossani_azambuja</p>
+        </div>
+
         <div class="delivery">
           <div class="delivery__text">
             <p class="eyebrow">Vistoria final</p>
@@ -320,7 +351,7 @@
             </figure>
             <figure class="device device--phone">
               <video src="assets/video/acabamento.mp4" muted loop playsinline preload="none" poster="assets/img/extra/extra_01-sm.jpg" data-autoplay></video>
-              <figcaption>Acabamento · painéis e iluminação</figcaption>
+              <figcaption>Acabamento · vídeo @rossani_azambuja</figcaption>
             </figure>
           </div>
         </div>

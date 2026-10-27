@@ -17,7 +17,8 @@
   const seq = (dir, from, to) => Array.from({ length: to - from + 1 }, (_, i) => `${dir}/${dir}_${String(from + i).padStart(2, '0')}`);
 
   const GALLERIES = {
-    qi15: { title: 'SHIS QI 15 · Lago Sul', items: seq('shis-qi-15', 1, 9) },
+    qi15: { title: 'SHIS QI 15 · Lago Sul', items: ['obras/obras_01', ...seq('shis-qi-15', 1, 9)] },
+    apto: { title: 'Apartamento · detalhes de acabamento', items: seq('apto', 1, 6) },
     ql6: { title: 'SHIS QL 6 · Lago Sul', items: seq('shis-ql-6', 1, 9) },
     unique: { title: 'Unique Duplex · Sudoeste', items: seq('unique', 1, 9) },
     w3: {
@@ -240,11 +241,45 @@
   /* ---------------- scroll animations ---------------- */
   if (hasGsap && !reduce) {
     // textos divididos em palavras
-    $$('.split').forEach((el) => {
+    $$('.split:not(.intro__title)').forEach((el) => {
       gsap.from($$('.w > span', el), {
         yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: 0.035,
         scrollTrigger: { trigger: el, start: 'top 85%' },
       });
+    });
+
+    // apresentação: as palavras acendem conforme o scroll
+    const intro = $('.intro__title');
+    const introWords = $$('.w > span', intro);
+    intro.classList.add('lit');
+    ScrollTrigger.create({
+      trigger: intro, start: 'top 80%', end: 'bottom 45%', scrub: true,
+      onUpdate: (self) => {
+        const n = Math.round(self.progress * introWords.length);
+        introWords.forEach((w, i) => w.classList.toggle('on', i < n));
+      },
+    });
+
+    // mosaico de acabamentos: cada quadro se abre como uma cortina
+    $$('.detail').forEach((d, i) => {
+      gsap.fromTo(d, { clipPath: 'inset(100% 0% 0% 0% round 16px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 16px)', duration: 1.2, ease: 'expo.out', delay: (i % 3) * 0.08,
+        scrollTrigger: { trigger: d, start: 'top 92%' },
+      });
+      gsap.fromTo($('img', d), { scale: 1.35 }, { scale: 1, duration: 1.6, ease: 'expo.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: d, start: 'top 92%' } });
+    });
+
+    // obras: a foto entra por uma máscara que se abre do centro
+    $$('.work').forEach((w) => {
+      gsap.fromTo($('.work__bg', w), { clipPath: 'inset(12% 8% 12% 8% round 28px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
+        scrollTrigger: { trigger: w, start: 'top bottom', end: 'top 15%', scrub: true },
+      });
+    });
+
+    // fotos da história: parallax dentro do card enquanto a linha do tempo anda
+    $$('.chapter__img').forEach((im) => {
+      gsap.fromTo(im, { objectPosition: '30% 50%' }, { objectPosition: '70% 50%', ease: 'none', scrollTrigger: { trigger: '.history', start: 'top top', end: () => `+=${Math.max(1, $('.history__track').scrollWidth - innerWidth)}`, scrub: true } });
     });
 
     // títulos genéricos
@@ -459,7 +494,7 @@
     lenis?.start();
     lastFocus?.focus();
   }
-  $$('[data-open]').forEach((b) => b.addEventListener('click', () => openLightbox(b.dataset.open)));
+  $$('[data-open]').forEach((b) => b.addEventListener('click', () => openLightbox(b.dataset.open, +(b.dataset.i || 0))));
   $('.lightbox__close', lb).addEventListener('click', closeLightbox);
   $('.lightbox__prev', lb).addEventListener('click', () => showLb(lbIdx - 1));
   $('.lightbox__next', lb).addEventListener('click', () => showLb(lbIdx + 1));
