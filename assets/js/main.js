@@ -30,7 +30,7 @@
 
   const GALLERIES = {
     qi15: { title: 'SHIS QI 15 · Lago Sul', items: ['obras/obras_01', ...seq('shis-qi-15', 1, 9)] },
-    apto: { title: 'Apartamento · detalhes de acabamento', items: seq('apartamento', 1, 9) },
+    apto: { title: 'Apartamento · detalhes de acabamento', items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `apartamento/ap_0${n}`) },
     ql6: { title: 'SHIS QL 6 · Lago Sul', items: seq('shis-ql-6', 1, 9) },
     unique: { title: 'Unique Duplex · Sudoeste', items: seq('unique', 1, 9) },
     w3: {
