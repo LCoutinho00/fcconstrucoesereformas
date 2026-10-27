@@ -181,7 +181,7 @@
     lastY = y;
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-    wa.classList.toggle('is-on', y > hero.offsetHeight - innerHeight * 0.5);
+    wa.classList.toggle('is-on', y > hero.offsetTop + hero.offsetHeight - innerHeight * 0.5);
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();

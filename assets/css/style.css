@@ -497,3 +497,34 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- texto que acende com o scroll ---------- */
 .intro__title.lit .w > span { opacity: .14; transition: opacity .2s linear; }
 .intro__title.lit .w > span.on { opacity: 1; }
+
+/* ---------- timelapse da obra (scroll) ---------- */
+.build { position: relative; height: 420vh; background: var(--bg); display: none; }
+.build.is-ready { display: block; }
+.build__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.build__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.build__shade { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(180deg, rgba(13,14,16,.85) 0%, rgba(13,14,16,0) 26%),
+  linear-gradient(0deg, rgba(13,14,16,.85) 0%, rgba(13,14,16,0) 38%); }
+.build__intro { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(80px, 13vh, 140px); z-index: 2; }
+.build__title { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 78%; text-transform: uppercase; font-size: clamp(46px, 7.4vw, 128px); line-height: .88; letter-spacing: -.02em; }
+.build__title span { color: var(--red); font-style: italic; }
+.build__hint { margin: 22px 0 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dim); }
+.build__hint i { display: inline-block; font-style: normal; margin-left: 8px; animation: hint 1.6s var(--ease) infinite; }
+@keyframes hint { 50% { transform: translateY(6px); } }
+.build__stages { position: absolute; right: var(--gutter); top: clamp(100px, 15vh, 140px); z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: rgba(243,240,234,.45); }
+.build__stages li { display: flex; align-items: center; justify-content: flex-end; gap: 12px; transition: color .4s; }
+.build__stages li::after { content: ""; width: 24px; height: 1px; background: currentColor; transition: width .5s var(--ease), background .4s; }
+.build__stages li.is-active { color: var(--ink); }
+.build__stages li.is-active::after { width: 52px; background: var(--red); }
+.build__counter { position: absolute; right: var(--gutter); bottom: 28px; z-index: 2; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--ink-dim); }
+.build__counter b { color: var(--ink); font-size: 40px; font-weight: 800; font-stretch: 80%; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.build__done { position: absolute; left: var(--gutter); bottom: clamp(80px, 13vh, 140px); z-index: 2; opacity: 0; }
+@media (max-width: 900px) {
+  .build { height: 340vh; }
+  .build__stages { top: 88px; gap: 8px; font-size: 10px; }
+  .build__stages li::after { width: 12px; }
+  .build__stages li.is-active::after { width: 28px; }
+  .build__counter b { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .build { height: 200vh; } }

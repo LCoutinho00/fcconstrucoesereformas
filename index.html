@@ -85,6 +85,31 @@
 
   <main id="topo">
 
+    <!-- TIMELAPSE DA OBRA (scroll) — data-frames = número de quadros em assets/timelapse/{lg,sm} -->
+    <section class="build" id="build" data-frames="0" aria-label="Timelapse da construção da residência SHIS QI 15">
+      <div class="build__sticky">
+        <canvas id="buildCanvas" class="build__canvas" aria-hidden="true"></canvas>
+        <div class="build__shade" aria-hidden="true"></div>
+        <div class="build__intro">
+          <p class="eyebrow"><span class="dot"></span> FC Construção & Reforma — desde 1992</p>
+          <p class="build__title">Do terreno vazio<br><span>à chave na mão.</span></p>
+          <p class="build__hint">Role para construir <i>↓</i></p>
+        </div>
+        <ol class="build__stages" aria-hidden="true">
+          <li class="is-active"><b>01</b> Fundação</li>
+          <li><b>02</b> Estrutura</li>
+          <li><b>03</b> Alvenaria</li>
+          <li><b>04</b> Acabamento</li>
+          <li><b>05</b> Entrega</li>
+        </ol>
+        <div class="build__counter" aria-hidden="true"><span>Obra</span> <b id="buildPct">0</b>%</div>
+        <div class="build__done" aria-hidden="true">
+          <p class="eyebrow">Residência · SHIS QI 15 · Lago Sul</p>
+          <p class="build__title">Obra entregue.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- HERO: foto real da obra com movimento -->
     <section class="hero" id="hero">
       <div class="hero__sticky">
@@ -456,5 +481,6 @@
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/photo-motion.js" defer></script>
+  <script src="assets/js/build-scrub.js" defer></script>
 </body>
 </html>
