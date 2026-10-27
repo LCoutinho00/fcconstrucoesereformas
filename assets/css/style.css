@@ -504,7 +504,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .build__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .build__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .build__shade { position: absolute; inset: 0; pointer-events: none; background:
-  linear-gradient(180deg, rgba(13,14,16,.85) 0%, rgba(13,14,16,0) 26%),
+  linear-gradient(180deg, rgba(13,14,16,.95) 0%, rgba(13,14,16,.75) 12%, rgba(13,14,16,0) 34%),
+  linear-gradient(90deg, rgba(13,14,16,.55) 0%, rgba(13,14,16,0) 30%),
   linear-gradient(0deg, rgba(13,14,16,.85) 0%, rgba(13,14,16,0) 38%); }
 .build__intro { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(80px, 13vh, 140px); z-index: 2; }
 .build__title { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 78%; text-transform: uppercase; font-size: clamp(46px, 7.4vw, 128px); line-height: .88; letter-spacing: -.02em; }

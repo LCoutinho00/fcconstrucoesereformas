@@ -39,23 +39,18 @@
     float ra = res.x / res.y, ia = size.x / size.y;
     vec2 s = ra > ia ? vec2(1., ia / ra) : vec2(ra / ia, 1.);
     vec2 uv = (q - .5) * s + mix(vec2(.5), focus, 1. - min(s.x, s.y));
-    // empurrão de câmera: lento durante a foto, mais forte com o scroll; o que está perto aproxima mais
-    float zoom = 0.05 + min(age, 12.) * 0.011 + scroll * 0.24 + push + (1. - intro) * 0.14;
-    float d0 = depth(uv);
-    uv = focus + (uv - focus) / (1. + zoom * (0.5 + d0 * 0.9));
-    vec2 drift = vec2(sin(time * 0.13), cos(time * 0.11) * 0.6) * 0.01 + mouse * vec2(0.02, -0.013);
-    uv += drift * (depth(uv) - 0.45);
+    // empurrão de câmera uniforme (Ken Burns): a foto inteira aproxima e desliza junto, sem deformar a arquitetura
+    float zoom = 0.03 + min(age, 12.) * 0.006 + scroll * 0.14 + push + (1. - intro) * 0.1;
+    uv = focus + (uv - focus) / (1. + zoom);
+    vec2 drift = vec2(sin(time * 0.13), cos(time * 0.11) * 0.6) * 0.004 + mouse * vec2(0.008, -0.005);
+    uv += drift;
 
     vec3 base = texture2D(tex, uv).rgb;
     float keep = 1. - inRect(uv, mark);
-    float sky = smoothstep(0.55, 0.7, uv.y) * smoothstep(0.5, 0.72, base.b + base.g * .2) * step(base.r, base.b + 0.04) * keep;
-    float leaf = smoothstep(0.02, 0.08, base.g - max(base.r, base.b)) * step(0.15, uv.y) * keep;
-    float pool = water * smoothstep(0.08, 0.2, base.b - base.r) * (1. - smoothstep(0.2, 0.27, uv.y));
+    // só a água da piscina ondula (azul forte na faixa de baixo da foto)
+    float pool = water * smoothstep(0.12, 0.24, base.b - base.r) * (1. - smoothstep(0.18, 0.24, uv.y));
 
-    vec2 o = vec2(0.);
-    o += sky * vec2(sin(time * 0.05) * 0.02, 0.);
-    o += leaf * vec2(sin(time * 1.6 + uv.y * 30. + uv.x * 12.), cos(time * 1.3 + uv.x * 25.)) * 0.0016;
-    o += pool * vec2(sin(uv.y * 160. + time * 2.1) + sin(uv.x * 90. - time * 1.3), cos(uv.x * 140. + time * 1.7)) * 0.0016;
+    vec2 o = pool * vec2(sin(uv.y * 160. + time * 2.1) + sin(uv.x * 90. - time * 1.3), cos(uv.x * 140. + time * 1.7)) * 0.0012;
     vec3 col = texture2D(tex, uv + o).rgb;
     float ca = sin(uv.x * 210. + sin(uv.y * 120. + time * 1.8) * 2. + time * 1.4) * sin(uv.y * 190. - time * 1.2 + sin(uv.x * 80.));
     col += pool * smoothstep(0.55, 1., ca) * 0.22;

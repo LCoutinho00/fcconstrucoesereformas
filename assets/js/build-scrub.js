@@ -53,14 +53,17 @@
   addEventListener('resize', resize);
 
   // desenha "cover" com um leve empurrão de câmera ao longo da obra
-  const draw = (im, p) => {
+  // overlay = true desenha só o quadro (sem o fundo), usado para misturar com o quadro seguinte
+  const draw = (im, p, overlay) => {
     const cw = canvas.width, ch = canvas.height, iw = im.naturalWidth, ih = im.naturalHeight;
     if (cw / ch < 1) {
       // tela em pé: fundo desfocado do próprio quadro + quadro inteiro (levemente ampliado) na parte de cima
-      const sb = Math.max(cw / iw, ch / ih);
-      ctx.filter = 'blur(18px) brightness(0.55)';
-      ctx.drawImage(im, (cw - iw * sb) / 2, (ch - ih * sb) / 2, iw * sb, ih * sb);
-      ctx.filter = 'none';
+      if (!overlay) {
+        const sb = Math.max(cw / iw, ch / ih);
+        ctx.filter = 'blur(18px) brightness(0.55)';
+        ctx.drawImage(im, (cw - iw * sb) / 2, (ch - ih * sb) / 2, iw * sb, ih * sb);
+        ctx.filter = 'none';
+      }
       const s = (cw / iw) * (1.7 + p * 0.06);
       const dw = iw * s, dh = ih * s;
       ctx.drawImage(im, (cw - dw) / 2, ch * 0.13, dw, dh);
@@ -81,10 +84,17 @@
     // a obra acontece entre 8% e 88% da seção; antes e depois o quadro fica parado
     const target = Math.min(1, Math.max(0, (p - 0.08) / 0.8));
     shown += (target - shown) * (reduce ? 1 : 0.18);
-    const idx = Math.round(shown * (count - 1));
-    if (idx !== last || !frames[idx]) {
-      const im = frames[idx] || nearest(idx);
-      if (im) { draw(im, shown); last = frames[idx] ? idx : -1; }
+    // posição contínua: desenha o quadro atual e funde o seguinte pela fração (rolagem sem trancos)
+    const pos = shown * (count - 1);
+    if (Math.abs(pos - last) > 0.01 || !frames[Math.floor(pos)]) {
+      const i0 = Math.floor(pos), f = pos - i0;
+      const a = frames[i0] || nearest(i0);
+      if (a) {
+        draw(a, shown, false);
+        const b = frames[i0 + 1];
+        if (b && f > 0.03) { ctx.globalAlpha = f; draw(b, shown, true); ctx.globalAlpha = 1; }
+        last = frames[i0] ? pos : -1;
+      }
     }
     if (pct) pct.textContent = Math.round(shown * 100);
     const si = Math.min(stages.length - 1, Math.floor(shown * stages.length * 0.999));
