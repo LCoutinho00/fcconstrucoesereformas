@@ -23,7 +23,7 @@
   };
 
   // fotos ampliadas: versão média (1280px) no celular quando existir
-  const MD = new Set(['copia-unique/copia-unique_05','copia-unique/copia-unique_07','copia-unique/copia-unique_08','copia-unique/copia-unique_09','copia-unique/copia-unique_10','copia-unique/copia-unique_11','copia-unique/copia-unique_12','copia-unique/copia-unique_13','copia-unique/copia-unique_14','copia-unique/copia-unique_15','copia-unique/copia-unique_16','copia-unique/copia-unique_17','extra/extra_01','obras/obras_01','obras/obras_03','obras/obras_04','shis-qi-15/shis-qi-15_01','shis-qi-15/shis-qi-15_02','shis-qi-15/shis-qi-15_03','shis-qi-15/shis-qi-15_04','shis-qi-15/shis-qi-15_05','shis-qi-15/shis-qi-15_06','shis-qi-15/shis-qi-15_07','shis-qi-15/shis-qi-15_08','shis-qi-15/shis-qi-15_09','shis-ql-6/shis-ql-6_01','shis-ql-6/shis-ql-6_02','shis-ql-6/shis-ql-6_03','shis-ql-6/shis-ql-6_04','shis-ql-6/shis-ql-6_05','shis-ql-6/shis-ql-6_06','shis-ql-6/shis-ql-6_07','shis-ql-6/shis-ql-6_08','shis-ql-6/shis-ql-6_09','unique/unique_02','unique/unique_03','unique/unique_04','unique/unique_05','unique/unique_06','unique/unique_07','unique/unique_08','unique/unique_09']);
+  const MD = new Set(['copia-unique/copia-unique_05','copia-unique/copia-unique_07','copia-unique/copia-unique_08','copia-unique/copia-unique_09','copia-unique/copia-unique_10','copia-unique/copia-unique_11','copia-unique/copia-unique_12','copia-unique/copia-unique_13','copia-unique/copia-unique_14','copia-unique/copia-unique_15','copia-unique/copia-unique_16','copia-unique/copia-unique_17','extra/extra_01','obras/obras_01','obras/obras_03','obras/obras_04','shis-qi-15/shis-qi-15_01','shis-qi-15/shis-qi-15_02','shis-qi-15/shis-qi-15_03','shis-qi-15/shis-qi-15_04','shis-qi-15/shis-qi-15_05','shis-qi-15/shis-qi-15_06','shis-qi-15/shis-qi-15_07','shis-qi-15/shis-qi-15_08','shis-qi-15/shis-qi-15_09','shis-ql-6/shis-ql-6_01','shis-ql-6/shis-ql-6_02','shis-ql-6/shis-ql-6_03','shis-ql-6/shis-ql-6_04','shis-ql-6/shis-ql-6_05','shis-ql-6/shis-ql-6_06','shis-ql-6/shis-ql-6_07','shis-ql-6/shis-ql-6_08','shis-ql-6/shis-ql-6_09','unique/unique_03','unique/unique_04','unique/unique_05','unique/unique_06','unique/unique_07','unique/unique_08','unique/unique_09']);
   const img = (p) => `assets/img/${p}${innerWidth < 900 && MD.has(p) ? '-md' : ''}.jpg`;
   const sm = (p) => `assets/img/${p}-sm.jpg`;
   const seq = (dir, from, to) => Array.from({ length: to - from + 1 }, (_, i) => `${dir}/${dir}_${String(from + i).padStart(2, '0')}`);
@@ -32,7 +32,7 @@
     qi15: { title: 'SHIS QI 15 · Lago Sul', items: ['obras/obras_01', ...seq('shis-qi-15', 1, 9)] },
     apto: { title: 'Apartamento · detalhes de acabamento', items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `apartamento/ap_0${n}`) },
     ql6: { title: 'SHIS QL 6 · Lago Sul', items: seq('shis-ql-6', 1, 9) },
-    unique: { title: 'Unique Duplex · Sudoeste', items: seq('unique', 1, 9) },
+    unique: { title: 'Unique Duplex · Sudoeste', items: ['unique/unique_09', 'unique/unique_08', 'unique/unique_07', 'unique/unique_01', 'unique/unique_03', 'unique/unique_04', 'unique/unique_05', 'unique/unique_06'] },
     w3: {
       title: 'SHIGS 707 · Via W3',
       items: [20, 4, 8, 2, 3, 6, 18, 19, 1, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5, 7].map((n) => `copia-unique/copia-unique_${String(n).padStart(2, '0')}`),
@@ -43,7 +43,7 @@
         'extra/extra_03', 'shis-qi-15/shis-qi-15_03', 'unique/unique_07', 'obras/obras_01', 'copia-unique/copia-unique_12',
         'shis-ql-6/shis-ql-6_01', 'extra/extra_01', 'shis-qi-15/shis-qi-15_09', 'unique/unique_03', 'extra/extra_02',
         'obras/obras_03', 'shis-qi-15/shis-qi-15_05', 'extra/extra_04', 'shis-ql-6/shis-ql-6_04', 'copia-unique/copia-unique_05',
-        'unique/unique_02',
+        'unique/unique_08',
       ],
     },
   };

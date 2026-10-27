@@ -15,7 +15,7 @@
   const SLIDES = [
     { src: 'obras/obras_01', mark: [0, 0.74, 0.17, 1], focus: [0.5, 0.52], water: 0, num: '[01]', name: 'SHIS QI 15', place: 'Residência · Lago Sul', gallery: 'qi15' },
     { src: 'shis-ql-6/shis-ql-6_06', mark: [0.8, 0.74, 1, 1], focus: [0.56, 0.45], water: 1, num: '[02]', name: 'SHIS QL 6', place: 'Residência · Lago Sul', gallery: 'ql6' },
-    { src: 'unique/unique_07', mark: [0, 0.76, 0.22, 1], focus: [0.6, 0.5], water: 0, num: '[03]', name: 'Unique Duplex', place: 'Apartamento · Sudoeste', gallery: 'unique' },
+    { src: 'unique/unique_09', mark: [0, 0.74, 0.24, 1], focus: [0.55, 0.5], water: 0, num: '[03]', name: 'Unique Duplex', place: 'Apartamento · Sudoeste', gallery: 'unique' },
   ];
   const HOLD = 8, FADE = 1.8; // segundos por foto e duração da transição
 
