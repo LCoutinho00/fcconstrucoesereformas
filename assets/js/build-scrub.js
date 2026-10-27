@@ -54,9 +54,20 @@
 
   // desenha "cover" com um leve empurrão de câmera ao longo da obra
   const draw = (im, p) => {
-    const cw = canvas.width, ch = canvas.height;
-    const s = Math.max(cw / im.naturalWidth, ch / im.naturalHeight) * (1.0 + p * 0.06);
-    const dw = im.naturalWidth * s, dh = im.naturalHeight * s;
+    const cw = canvas.width, ch = canvas.height, iw = im.naturalWidth, ih = im.naturalHeight;
+    if (cw / ch < 1) {
+      // tela em pé: fundo desfocado do próprio quadro + quadro inteiro (levemente ampliado) na parte de cima
+      const sb = Math.max(cw / iw, ch / ih);
+      ctx.filter = 'blur(18px) brightness(0.55)';
+      ctx.drawImage(im, (cw - iw * sb) / 2, (ch - ih * sb) / 2, iw * sb, ih * sb);
+      ctx.filter = 'none';
+      const s = (cw / iw) * (1.7 + p * 0.06);
+      const dw = iw * s, dh = ih * s;
+      ctx.drawImage(im, (cw - dw) / 2, ch * 0.13, dw, dh);
+      return;
+    }
+    const s = Math.max(cw / iw, ch / ih) * (1.0 + p * 0.06);
+    const dw = iw * s, dh = ih * s;
     ctx.drawImage(im, (cw - dw) / 2, (ch - dh) * 0.55, dw, dh);
   };
 
