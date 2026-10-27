@@ -10,7 +10,7 @@
   const isMobile = () => innerWidth < 900;
 
   // estado compartilhado com a cena 3D (hero3d.js)
-  const FC = (window.FC = window.FC || { intro: 0, scroll: 0, build: 0, mouseX: 0, mouseY: 0 });
+  const FC = (window.FC = window.FC || { scroll: 0, mouseX: 0, mouseY: 0 });
 
   const img = (p) => `assets/img/${p}.jpg`;
   const sm = (p) => `assets/img/${p}-sm.jpg`;
@@ -76,7 +76,6 @@
     document.body.classList.remove('is-loading');
     if (!hasGsap || reduce) {
       loader.remove();
-      FC.intro = 0.2;
       startHero();
       return;
     }
@@ -121,11 +120,9 @@
   /* ---------------- hero ---------------- */
   function startHero() {
     if (hasGsap && !reduce) {
-      gsap.from('.hero__title .line > span', { yPercent: 110, duration: 1.3, ease: 'expo.out', stagger: 0.12 });
-      gsap.from(['.hero__eyebrow', '.hero__lead', '.hero__actions', '.hero__stages', '.hero__build'], { y: 30, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08, delay: 0.25 });
-      gsap.to(FC, { intro: 0.2, duration: 3.2, ease: 'power2.out', delay: 0.1 });
-    } else {
-      FC.intro = 0.2;
+      gsap.from('.hero__title .line > span', { yPercent: 110, duration: 1.4, ease: 'expo.out', stagger: 0.1, delay: 0.15 });
+      gsap.from(['.hero__eyebrow', '.hero__lead', '.hero__actions', '.hero__top span'], { y: 30, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.07, delay: 0.4 });
+      gsap.fromTo('.hero__media', { clipPath: 'inset(18% 22% 18% 22% round 24px)', scale: 1.08 }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', scale: 1, duration: 1.8, ease: 'expo.inOut' });
     }
     window.dispatchEvent(new Event('fc:start'));
   }
@@ -147,30 +144,19 @@
     }, 2400);
   })();
 
-  // progresso de construção ligado ao scroll do hero
-  const stages = $$('.hero__stages li');
-  const pct = $('#buildPct');
+  // scroll do hero: a câmera entra na foto e o conteúdo sai
   const hero = $('#hero');
-  // ?obra=0.5 fixa o progresso da cena (útil para revisar cada etapa)
-  const forceParam = new URLSearchParams(location.search).get('obra');
-  const forceBuild = forceParam === null ? null : clamp(parseFloat(forceParam) || 0);
+  const heroContent = $('.hero__content');
+  const heroCard = $('.hero__card');
   const updateHero = () => {
     const r = hero.getBoundingClientRect();
     const total = r.height - innerHeight;
     FC.scroll = total > 0 ? clamp(-r.top / total) : 0;
-    FC.build = Math.max(FC.intro, FC.scroll);
-    if (forceBuild !== null) { FC.build = forceBuild; FC.scroll = forceBuild; }
-    pct.textContent = Math.round(FC.build * 100);
-    const si = Math.min(stages.length - 1, Math.floor(FC.build * stages.length * 0.999));
-    stages.forEach((li, k) => li.classList.toggle('is-active', k === si));
-    // conteúdo do hero sai à medida que a obra sobe
-    const fade = clamp((FC.scroll - 0.62) / 0.3);
-    $('.hero__content').style.opacity = 1 - fade;
-    $('.hero__content').style.transform = `translateY(${-fade * 60}px)`;
-    $('.hero__content').style.visibility = fade > 0.99 ? 'hidden' : '';
-    const done = clamp((FC.scroll - 0.9) / 0.08);
-    $('.hero__done').style.opacity = done;
-    $('.hero__done').style.transform = `translateY(${(1 - done) * 40}px)`;
+    const fade = clamp((FC.scroll - 0.15) / 0.6);
+    heroContent.style.opacity = 1 - fade;
+    heroContent.style.transform = `translateY(${-fade * 80}px)`;
+    heroContent.style.visibility = fade > 0.99 ? 'hidden' : '';
+    heroCard.style.opacity = 1 - clamp(FC.scroll / 0.4);
     requestAnimationFrame(updateHero);
   };
   requestAnimationFrame(updateHero);
