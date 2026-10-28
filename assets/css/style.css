@@ -566,3 +566,16 @@ html:not(.has-gsap) .reveal__caption { opacity: 1; }
 @media (max-width: 860px) {
   .details__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
 }
+
+/* tours em vídeo: quatro celulares lado a lado; no celular viram carrossel com rolagem lateral */
+.tours { background: var(--bg); }
+.tours__head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 64px); }
+.tours__sub { color: var(--ink-dim); margin-top: 18px; max-width: 46ch; }
+.tours__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.device--tour { aspect-ratio: 9/16; border: 7px solid #111; border-radius: 30px; }
+.device--tour figcaption { left: 50%; transform: translateX(-50%); white-space: nowrap; }
+@media (max-width: 860px) {
+  .tours__row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 8px; scrollbar-width: none; }
+  .tours__row::-webkit-scrollbar { display: none; }
+  .device--tour { flex: 0 0 68%; scroll-snap-align: center; border-width: 5px; border-radius: 24px; }
+}

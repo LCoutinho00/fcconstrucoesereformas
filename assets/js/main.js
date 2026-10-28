@@ -27,12 +27,18 @@
   const img = (p) => `assets/img/${p}${innerWidth < 900 && MD.has(p) ? '-md' : ''}.jpg`;
   const sm = (p) => `assets/img/${p}-sm.jpg`;
   const seq = (dir, from, to) => Array.from({ length: to - from + 1 }, (_, i) => `${dir}/${dir}_${String(from + i).padStart(2, '0')}`);
+  const num = (dir, pre, n) => Array.from({ length: n }, (_, i) => `${dir}/${pre}_${String(i + 1).padStart(2, '0')}`);
+  const ADV = num('advocacia', 'adv', 7);
+  const AP2 = num('apartamento-2', 'ap2', 14);
+  [...ADV, ...AP2].forEach((p) => MD.add(p));
 
   const GALLERIES = {
     qi15: { title: 'SHIS QI 15 · Lago Sul', items: ['obras/obras_01', ...seq('shis-qi-15', 1, 9)] },
     apto: { title: 'Apartamento · detalhes de acabamento', items: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `apartamento/ap_0${n}`) },
     ql6: { title: 'SHIS QL 6 · Lago Sul', items: seq('shis-ql-6', 1, 9) },
     unique: { title: 'Unique Duplex · Sudoeste', items: ['unique/unique_09', 'unique/unique_08', 'unique/unique_07', 'unique/unique_01', 'unique/unique_03', 'unique/unique_04', 'unique/unique_05', 'unique/unique_06'] },
+    ap2: { title: 'Apartamento · marcenaria sob medida', items: AP2 },
+    adv: { title: 'Escritório de advocacia', items: [6, 1, 2, 3, 4, 5, 7].map((n) => ADV[n - 1]) },
     w3: {
       title: 'SHIGS 707 · Via W3',
       items: [20, 4, 8, 2, 3, 6, 18, 19, 1, 9, 10, 11, 12, 13, 14, 15, 16, 17, 5, 7].map((n) => `copia-unique/copia-unique_${String(n).padStart(2, '0')}`),
@@ -404,6 +410,7 @@
     });
     gsap.from('.device--wide', { y: 80, rotateX: 12, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.delivery__media', start: 'top 80%' } });
     gsap.from('.device--phone', { y: 160, rotate: 6, opacity: 0, duration: 1.4, ease: 'expo.out', delay: 0.15, scrollTrigger: { trigger: '.delivery__media', start: 'top 80%' } });
+    gsap.from('.device--tour', { y: 120, opacity: 0, duration: 1.3, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.tours__row', start: 'top 85%' } });
     gsap.from('.card', { y: 80, opacity: 0, rotateX: -10, duration: 1.1, ease: 'expo.out', stagger: { each: 0.07, grid: 'auto' }, scrollTrigger: { trigger: '.cards', start: 'top 82%' } });
     gsap.from('.faq__list details', { y: 30, opacity: 0, duration: 0.9, ease: 'expo.out', stagger: 0.07, scrollTrigger: { trigger: '.faq__list', start: 'top 85%' } });
 
