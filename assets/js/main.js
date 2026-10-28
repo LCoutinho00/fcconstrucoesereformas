@@ -97,7 +97,7 @@
   /* ---------------- loader ---------------- */
   const loader = $('#loader');
   document.body.classList.add('is-loading');
-  const finishLoader = () => {
+  const finishLoader = (fromIntro) => {
     document.body.classList.remove('is-loading');
     if (!hasGsap || reduce) {
       loader.remove();
@@ -105,11 +105,52 @@
       return;
     }
     const tl = gsap.timeline({ onComplete: () => loader.remove() });
-    tl.to('.loader__panel', { yPercent: -100, duration: 0.8, ease: 'expo.inOut' })
-      .to(loader, { yPercent: -100, duration: 0.9, ease: 'expo.inOut' }, '-=0.35')
+    // a abertura termina com a tela toda vermelha: só falta subir o painel
+    if (!fromIntro) tl.to('.loader__panel', { yPercent: -100, duration: 0.8, ease: 'expo.inOut' });
+    tl.to(loader, { yPercent: -100, duration: 0.9, ease: 'expo.inOut' }, fromIntro ? 0 : '-=0.35')
       .add(startHero, '-=0.55');
   };
-  (() => {
+  // espera só o essencial (fontes + foto principal), não o site inteiro: os quadros do timelapse carregam depois
+  const heroImg = $('.hero__img');
+  const ready = Promise.race([
+    Promise.all([
+      document.fonts ? document.fonts.ready : Promise.resolve(),
+      heroImg && heroImg.decode ? heroImg.decode().catch(() => {}) : Promise.resolve(),
+    ]),
+    new Promise((r) => setTimeout(r, 4500)), // decode() pode nunca responder em aba oculta
+  ]);
+
+  // abertura em vídeo (feita no Remotion): uma vez por visita, só com conexão boa e sem "reduzir movimento"
+  const introVideo = $('.loader__video');
+  const conn = navigator.connection;
+  let introSeen = false;
+  try { introSeen = sessionStorage.getItem('fc-intro') === '1'; } catch (e) { /* armazenamento bloqueado */ }
+  const useIntro = introVideo && hasGsap && !reduce && !introSeen && !(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')));
+  if (useIntro) {
+    loader.classList.add('is-intro');
+    try { sessionStorage.setItem('fc-intro', '1'); } catch (e) { /* armazenamento bloqueado */ }
+    introVideo.src = `assets/video/abertura${innerWidth < innerHeight ? '-vertical' : ''}.mp4?v=1`;
+    introVideo.preload = 'auto';
+    let done = false;
+    const end = () => {
+      if (done) return;
+      done = true;
+      introVideo.pause();
+      gsap.set('.loader__panel', { yPercent: 0 });
+      loader.classList.add('is-intro-done');
+      // a abertura já cobriu o carregamento: espera no máximo mais um instante pela foto principal
+      Promise.race([ready, new Promise((r) => setTimeout(r, 800))]).then(() => finishLoader(true));
+    };
+    // se o vídeo não começar a tocar logo, segue sem ele
+    const stall = setTimeout(end, 3500);
+    introVideo.addEventListener('playing', () => { clearTimeout(stall); loader.classList.add('is-playing'); setTimeout(end, 9000); }, { once: true });
+    introVideo.addEventListener('ended', end);
+    introVideo.addEventListener('error', end);
+    $('.loader__skip').addEventListener('click', end);
+    introVideo.play().catch(end);
+  }
+
+  !useIntro && (() => {
     const count = $('#loaderCount');
     const bar = $('#loaderBar');
     const tri = $('.loader__tri');
@@ -117,14 +158,7 @@
     let shown = 0;
     let target = 30;
     const t0 = performance.now();
-    // espera só o essencial (fontes + foto principal), não o site inteiro: os quadros do timelapse carregam depois
-    const heroImg = $('.hero__img');
-    const ready = Promise.all([
-      document.fonts ? document.fonts.ready : Promise.resolve(),
-      heroImg && heroImg.decode ? heroImg.decode().catch(() => {}) : Promise.resolve(),
-    ]);
     ready.then(() => (target = 100));
-    setTimeout(() => (target = 100), 4500);
     let last = t0;
     const tick = () => {
       const now = performance.now();

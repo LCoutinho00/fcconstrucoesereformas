@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=202610281600">
+  <link rel="stylesheet" href="assets/css/style.css?v=202610281800">
   <noscript><style>.loader{display:none}.build{display:none}.hero__canvas{display:none}</style></noscript>
   <script type="application/ld+json">
   {
@@ -52,6 +52,7 @@
 
   <!-- LOADER -->
   <div class="loader" id="loader" aria-hidden="true">
+    <video class="loader__video" muted playsinline preload="none"></video>
     <div class="loader__inner">
       <svg class="loader__logo" viewBox="0 0 220 200" aria-hidden="true">
         <path class="loader__tri" d="M110 8 L212 192 L8 192 Z" />
@@ -63,6 +64,7 @@
       </div>
       <div class="loader__bar"><i id="loaderBar"></i></div>
     </div>
+    <button class="loader__skip" type="button">Pular abertura</button>
     <div class="loader__panel"></div>
   </div>
 
@@ -539,8 +541,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-  <script src="assets/js/main.js?v=202610281600" defer></script>
-  <script src="assets/js/photo-motion.js?v=202610281600" defer></script>
-  <script src="assets/js/build-scrub.js?v=202610281600" defer></script>
+  <script src="assets/js/main.js?v=202610281800" defer></script>
+  <script src="assets/js/photo-motion.js?v=202610281800" defer></script>
+  <script src="assets/js/build-scrub.js?v=202610281800" defer></script>
 </body>
 </html>
