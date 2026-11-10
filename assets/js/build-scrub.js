@@ -13,7 +13,8 @@
   const dir = innerWidth * Math.min(devicePixelRatio, 2) > 1100 ? 'lg' : 'sm';
   // data-version muda sempre que os quadros forem trocados (mesmos nomes de arquivo): evita misturar com quadros antigos do cache
   const ver = section.dataset.version ? `?v=${section.dataset.version}` : '';
-  const src = (i) => `assets/timelapse/${dir}/f${String(i + 1).padStart(3, '0')}.jpg${ver}`;
+  const ext = document.documentElement.classList.contains('no-webp') ? 'jpg' : 'webp';
+  const src = (i) => `assets/timelapse/${dir}/f${String(i + 1).padStart(3, '0')}.${ext}${ver}`;
   const pct = document.getElementById('buildPct');
   const stages = [...section.querySelectorAll('.build__stages li:not([data-plan])')];
   const planLi = section.querySelector('.build__stages [data-plan]');

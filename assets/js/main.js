@@ -24,8 +24,10 @@
 
   // fotos ampliadas: versão média (1280px) no celular quando existir
   const MD = new Set(['copia-unique/copia-unique_05','copia-unique/copia-unique_07','copia-unique/copia-unique_08','copia-unique/copia-unique_09','copia-unique/copia-unique_10','copia-unique/copia-unique_11','copia-unique/copia-unique_12','copia-unique/copia-unique_13','copia-unique/copia-unique_14','copia-unique/copia-unique_15','copia-unique/copia-unique_16','copia-unique/copia-unique_17','extra/extra_01','obras/obras_01','obras/obras_03','obras/obras_04','shis-qi-15/shis-qi-15_01','shis-qi-15/shis-qi-15_02','shis-qi-15/shis-qi-15_03','shis-qi-15/shis-qi-15_04','shis-qi-15/shis-qi-15_05','shis-qi-15/shis-qi-15_06','shis-qi-15/shis-qi-15_07','shis-qi-15/shis-qi-15_08','shis-qi-15/shis-qi-15_09','shis-ql-6/shis-ql-6_01','shis-ql-6/shis-ql-6_02','shis-ql-6/shis-ql-6_03','shis-ql-6/shis-ql-6_04','shis-ql-6/shis-ql-6_05','shis-ql-6/shis-ql-6_06','shis-ql-6/shis-ql-6_07','shis-ql-6/shis-ql-6_08','shis-ql-6/shis-ql-6_09','unique/unique_03','unique/unique_04','unique/unique_05','unique/unique_06','unique/unique_07','unique/unique_08','unique/unique_09']);
-  const img = (p) => `assets/img/${p}${innerWidth < 900 && MD.has(p) ? '-md' : ''}.jpg`;
-  const sm = (p) => `assets/img/${p}-sm.jpg`;
+  // WebP em todo lugar; o JPEG fica de reserva para navegadores antigos (classe no-webp definida no <head>)
+  const ext = () => (document.documentElement.classList.contains('no-webp') ? 'jpg' : 'webp');
+  const img = (p) => `assets/img/${p}${innerWidth < 900 && MD.has(p) ? '-md' : ''}.${ext()}`;
+  const sm = (p) => `assets/img/${p}-sm.${ext()}`;
   const seq = (dir, from, to) => Array.from({ length: to - from + 1 }, (_, i) => `${dir}/${dir}_${String(from + i).padStart(2, '0')}`);
   const num = (dir, pre, n) => Array.from({ length: n }, (_, i) => `${dir}/${pre}_${String(i + 1).padStart(2, '0')}`);
   const ADV = num('advocacia', 'adv', 7);

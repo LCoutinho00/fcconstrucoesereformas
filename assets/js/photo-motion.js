@@ -137,7 +137,7 @@
       textures[i] = { tex, w: img.naturalWidth, h: img.naturalHeight };
       resolve(textures[i]);
     };
-    img.src = `assets/img/${SLIDES[i].src}${big ? '' : '-md'}.jpg?v=2`;
+    img.src = `assets/img/${SLIDES[i].src}${big ? '' : '-md'}.${document.documentElement.classList.contains('no-webp') ? 'jpg' : 'webp'}?v=2`;
   });
 
   const bind = (unit, i) => {
