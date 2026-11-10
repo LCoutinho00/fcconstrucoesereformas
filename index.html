@@ -97,14 +97,16 @@
     <section class="build" id="build" data-frames="120" data-version="v4-etapas" aria-label="Timelapse da construção da residência SHIS QI 15">
       <div class="build__sticky">
         <canvas id="buildCanvas" class="build__canvas" aria-hidden="true"></canvas>
+        <div class="build__plan" id="plan" aria-hidden="true"><canvas id="planCanvas"></canvas></div>
         <div class="build__shade" aria-hidden="true"></div>
         <div class="build__intro">
           <p class="eyebrow"><span class="dot"></span> FC Construção & Reforma — desde 1992</p>
-          <p class="build__title">Do terreno vazio<br><span>à chave na mão.</span></p>
+          <p class="build__title">Do projeto<br><span>à chave na mão.</span></p>
           <p class="build__hint">Role para construir <i>↓</i></p>
         </div>
         <ol class="build__stages" aria-hidden="true">
-          <li class="is-active"><b>01</b> Fundação</li>
+          <li class="is-active" data-plan><b>00</b> Projeto</li>
+          <li><b>01</b> Fundação</li>
           <li><b>02</b> Estrutura</li>
           <li><b>03</b> Alvenaria</li>
           <li><b>04</b> Acabamento</li>
@@ -543,6 +545,7 @@
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <script src="assets/js/main.js?v=202610281800" defer></script>
   <script src="assets/js/photo-motion.js?v=202610281800" defer></script>
+  <script src="assets/js/blueprint.js?v=202610281800" defer></script>
   <script src="assets/js/build-scrub.js?v=202610281800" defer></script>
 </body>
 </html>

@@ -15,7 +15,8 @@
   const ver = section.dataset.version ? `?v=${section.dataset.version}` : '';
   const src = (i) => `assets/timelapse/${dir}/f${String(i + 1).padStart(3, '0')}.jpg${ver}`;
   const pct = document.getElementById('buildPct');
-  const stages = [...section.querySelectorAll('.build__stages li')];
+  const stages = [...section.querySelectorAll('.build__stages li:not([data-plan])')];
+  const planLi = section.querySelector('.build__stages [data-plan]');
   const done = section.querySelector('.build__done');
   const intro = section.querySelector('.build__intro');
 
@@ -96,14 +97,17 @@
     ctx.drawImage(im, (cw - dw) / 2, (ch - dh) * 0.55, dw, dh);
   };
 
-  let shown = 0, lastStage = -1, lastPct = -1, on = false, raf = 0;
+  let shown = 0, lastStage = -2, lastPct = -1, on = false, raf = 0;
   const tick = () => {
     raf = requestAnimationFrame(tick);
     const r = section.getBoundingClientRect();
     const total = r.height - innerHeight;
     const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
-    // a obra acontece entre 8% e 88% da seção; antes e depois o quadro fica parado
-    const target = Math.min(1, Math.max(0, (p - 0.08) / 0.8));
+    // sem a planta 3D, a obra acontece entre 8% e 88% da seção; com ela (blueprint.js), a planta ocupa o começo
+    // e a obra real entra quando a planta se dissolve
+    const plan = section.classList.contains('has-plan') && window.FC && window.FC.plan;
+    const from = plan ? plan.end + plan.dissolve * 0.6 : 0.08;
+    const target = Math.min(1, Math.max(0, (p - from) / (0.88 - from)));
     shown += (target - shown) * (reduce ? 1 : 0.18);
     // posição contínua: desenha o quadro atual e funde o seguinte pela fração (rolagem sem trancos)
     const pos = shown * (count - 1);
@@ -121,9 +125,14 @@
     }
     const pc = Math.round(shown * 100);
     if (pct && pc !== lastPct) { pct.textContent = pc; lastPct = pc; }
-    const si = Math.min(stages.length - 1, Math.floor(shown * stages.length * 0.999));
-    if (si !== lastStage) { stages.forEach((li, k) => li.classList.toggle('is-active', k === si)); lastStage = si; }
-    if (intro) intro.style.opacity = String(1 - Math.min(1, p / 0.12));
+    const inPlan = plan && p < plan.end + plan.dissolve * 0.5;
+    const si = inPlan ? -1 : Math.min(stages.length - 1, Math.floor(shown * stages.length * 0.999));
+    if (si !== lastStage) {
+      stages.forEach((li, k) => li.classList.toggle('is-active', k === si));
+      if (planLi) planLi.classList.toggle('is-active', si === -1);
+      lastStage = si;
+    }
+    if (intro) intro.style.opacity = String(1 - Math.min(1, Math.max(0, p - (plan ? 0.05 : 0)) / 0.12));
     if (done) {
       const d = Math.min(1, Math.max(0, (p - 0.86) / 0.08));
       done.style.opacity = String(d);
