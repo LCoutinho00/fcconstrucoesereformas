@@ -596,3 +596,47 @@ html:not(.has-gsap) .reveal__caption { opacity: 1; }
 .loader.is-playing .loader__skip { display: block; }
 .loader.is-intro-done .loader__skip { display: none; }
 .loader__skip:focus-visible { outline: 3px solid var(--red-2); outline-offset: 3px; }
+
+/* ---------- galeria: a foto clicada cresce até a foto ampliada ---------- */
+::view-transition-group(fc-photo) { animation-duration: .55s; animation-timing-function: cubic-bezier(.2, .7, .1, 1); }
+::view-transition-old(fc-photo), ::view-transition-new(fc-photo) { height: 100%; object-fit: cover; }
+
+/* ---------- anel: reflexo no piso ---------- */
+.ring__item { -webkit-box-reflect: below 10px linear-gradient(transparent 68%, rgba(0, 0, 0, .22)); transition: filter .2s linear; }
+
+/* ---------- depoimentos (seção oculta até haver depoimentos reais) ---------- */
+.voices { background: var(--paper); color: var(--char); }
+.voices[hidden] { display: none; }
+.voices__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 48px); margin-top: clamp(40px, 6vw, 80px); }
+.voice { margin: 0; border-top: 2px solid var(--red); padding-top: 22px; }
+.voice blockquote { margin: 0 0 20px; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.45; }
+.voice figcaption b { display: block; font-family: var(--display); font-stretch: 85%; }
+.voice figcaption span { color: var(--char-dim); font-size: 14px; }
+@media (max-width: 860px) { .voices__row { grid-template-columns: 1fr; } }
+
+/* ---------- história: carrossel de arrastar no celular ---------- */
+.history--swipe .history__pin { height: auto; overflow: visible; padding: clamp(72px, 12vw, 120px) 0 56px; }
+.history--swipe .history__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 16px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.history--swipe .history__track::-webkit-scrollbar { display: none; }
+.history--swipe .chapter { scroll-snap-align: center; }
+
+/* ---------- celular: página mais curta ---------- */
+@media (max-width: 860px) {
+  .build.has-plan { height: 400vh; }
+  .hero { height: 150vh; }
+  .reveal { height: 170vh; }
+  .ring { height: 150vh; }
+}
+@media (max-width: 560px) {
+  .cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card { aspect-ratio: 4/5; border-radius: 16px; }
+  .card > div { padding: 14px; }
+  .card h3 { font-size: 19px; margin: 4px 0 0; }
+  .card p { display: none; }
+  .card:last-child { grid-column: 1 / -1; aspect-ratio: 8/5; }
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .pillar { padding: 20px 14px 22px 0; }
+  .pillar:nth-child(2n) { padding-left: 14px; border-left: 1px solid var(--line-dark); }
+  .pillar h3 { font-size: 18px; margin: 8px 0 6px; }
+  .pillar p { font-size: 13.5px; line-height: 1.45; }
+}

@@ -343,16 +343,18 @@
       gsap.fromTo($('img', d), { scale: 1.35 }, { scale: 1, duration: 1.6, ease: 'expo.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: d, start: 'top 92%' } });
     });
 
-    // obras: a foto entra por uma máscara que se abre do centro
+    // obras: a foto abre a partir do triângulo da marca FC até ocupar a tela
     $$('.work').forEach((w) => {
-      gsap.fromTo($('.work__bg', w), { clipPath: 'inset(12% 8% 12% 8% round 28px)' }, {
-        clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
-        scrollTrigger: { trigger: w, start: 'top bottom', end: 'top 15%', scrub: true },
+      gsap.fromTo($('.work__bg', w), { clipPath: 'polygon(50% 14%, 50% 14%, 90% 86%, 10% 86%)' }, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', ease: 'power1.in',
+        scrollTrigger: { trigger: w, start: 'top bottom', end: 'top 45%', scrub: true }, // termina antes do texto entrar (top 40%)
       });
     });
 
+    const swipeHistory = isMobile();
+    $('.history').classList.toggle('history--swipe', swipeHistory);
     // fotos da história: parallax dentro do card enquanto a linha do tempo anda
-    $$('.chapter__img').forEach((im) => {
+    !swipeHistory && $$('.chapter__img').forEach((im) => {
       gsap.fromTo(im, { objectPosition: '30% 50%' }, { objectPosition: '70% 50%', ease: 'none', scrollTrigger: { trigger: '.history', start: 'top top', end: () => `+=${Math.max(1, $('.history__track').scrollWidth - innerWidth)}`, scrub: true } });
     });
 
@@ -392,11 +394,11 @@
     // história horizontal
     const hTrack = $('.history__track');
     const hDist = () => Math.max(0, hTrack.scrollWidth - innerWidth);
-    const hTween = gsap.to(hTrack, {
+    const hTween = swipeHistory ? null : gsap.to(hTrack, {
       x: () => -hDist(), ease: 'none',
       scrollTrigger: { trigger: '.history', start: 'top top', end: () => `+=${hDist()}`, pin: '.history__pin', scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
-    $$('.chapter').forEach((ch) => {
+    hTween && $$('.chapter').forEach((ch) => {
       gsap.from(ch, {
         y: 80, rotate: 3, opacity: 0.2, ease: 'none',
         scrollTrigger: { trigger: ch, containerAnimation: hTween, start: 'left 100%', end: 'left 70%', scrub: true },
@@ -476,6 +478,7 @@
       ring.dataset.r = radius;
     };
     ring.innerHTML = items.map((p, i) => `<button class="ring__item" data-i="${i}" aria-label="Ampliar foto ${i + 1}"><img src="${sm(p)}" alt="" loading="lazy" draggable="false"></button>`).join('');
+    const ringItems = $$('.ring__item', ring);
     layout();
     addEventListener('resize', layout);
 
@@ -493,7 +496,7 @@
     ['pointerup', 'pointercancel', 'blur'].forEach((ev) => addEventListener(ev, () => { down = false; }));
     ring.addEventListener('click', (e) => {
       const b = e.target.closest('.ring__item');
-      if (b && moved < 6) openLightbox('ring', +b.dataset.i);
+      if (b && moved < 6) openLightbox('ring', +b.dataset.i, b);
     });
 
     const sec = $('.ring');
@@ -504,7 +507,13 @@
       if (!down) { drag += vel; vel *= 0.94; }
       if (!reduce) auto += 0.04;
       const tilt = -8 + Math.sin(p * Math.PI) * 4;
-      ring.style.transform = `translateZ(-${ring.dataset.r * 0.9}px) rotateX(${tilt}deg) rotateY(${-p * 220 + drag + auto}deg)`;
+      const rot = -p * 220 + drag + auto;
+      ring.style.transform = `translateZ(-${ring.dataset.r * 0.9}px) rotateX(${tilt}deg) rotateY(${rot}deg)`;
+      ringItems.forEach((el, k) => {
+        const facing = Math.cos(((360 / n) * k + rot) * Math.PI / 180); // 1 = de frente
+        const b = Math.round((0.38 + 0.62 * clamp(facing)) * 50) / 50;
+        if (el._b !== b) { el._b = b; el.style.filter = `brightness(${b})`; }
+      });
     };
     spin();
     whileVisible(sec, spin);
@@ -563,7 +572,7 @@
   const lbCap = $('figcaption', lb);
   const lbThumbs = $('.lightbox__thumbs', lb);
   let lbSet = null, lbIdx = 0, lastFocus = null;
-  function showLb(i) {
+  function showLb(i, quiet) {
     lbIdx = (i + lbSet.items.length) % lbSet.items.length;
     const p = lbSet.items[lbIdx];
     lbImg.src = img(p);
@@ -571,9 +580,26 @@
     lbCap.textContent = `${lbSet.title} — ${lbIdx + 1} / ${lbSet.items.length}`;
     $$('button', lbThumbs).forEach((b, k) => b.classList.toggle('is-on', k === lbIdx));
     $$('button', lbThumbs)[lbIdx]?.scrollIntoView({ block: 'nearest', inline: 'center' });
-    if (hasGsap && !reduce) gsap.fromTo(lbImg, { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'expo.out' });
+    if (hasGsap && !reduce && !quiet) gsap.fromTo(lbImg, { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'expo.out' });
   }
-  function openLightbox(key, i = 0) {
+  function openLightbox(key, i = 0, from) {
+    const origin = from && (from.matches('img') ? from : from.querySelector('img') || from.closest('.work')?.querySelector('.work__bg img'));
+    if (!origin || reduce || !document.startViewTransition) return showLightbox(key, i);
+    // carrega a foto grande antes, para a transição já ter o tamanho final
+    const pre = new Image();
+    pre.src = img(GALLERIES[key].items[(i + GALLERIES[key].items.length) % GALLERIES[key].items.length]);
+    const loaded = pre.decode ? pre.decode().catch(() => {}) : Promise.resolve();
+    Promise.race([loaded, new Promise((r) => setTimeout(r, 700))]).then(() => {
+      origin.style.viewTransitionName = 'fc-photo';
+      const vt = document.startViewTransition(() => {
+        origin.style.viewTransitionName = '';
+        showLightbox(key, i, true);
+        lbImg.style.viewTransitionName = 'fc-photo';
+      });
+      vt.finished.finally(() => { lbImg.style.viewTransitionName = ''; });
+    });
+  }
+  function showLightbox(key, i = 0, quiet) {
     lbSet = GALLERIES[key];
     lastFocus = document.activeElement;
     lbThumbs.innerHTML = lbSet.items.map((p, k) => `<button aria-label="Foto ${k + 1}"><img src="${sm(p)}" alt="" loading="lazy"></button>`).join('');
@@ -582,7 +608,7 @@
     // o resto da página fica inerte enquanto a galeria está aberta (teclado e leitores de tela)
     $$('body > *:not(#lightbox)').forEach((el) => { if (!el.inert) { el.inert = true; el.dataset.lbInert = '1'; } });
     lenis?.stop();
-    showLb(i);
+    showLb(i, quiet);
     $('.lightbox__close', lb).focus();
   }
   function closeLightbox() {
@@ -591,7 +617,7 @@
     lenis?.start();
     lastFocus?.focus();
   }
-  $$('[data-open]').forEach((b) => b.addEventListener('click', () => openLightbox(b.dataset.open, +(b.dataset.i || 0))));
+  $$('[data-open]').forEach((b) => b.addEventListener('click', () => openLightbox(b.dataset.open, +(b.dataset.i || 0), b)));
   $('.lightbox__close', lb).addEventListener('click', closeLightbox);
   $('.lightbox__prev', lb).addEventListener('click', () => showLb(lbIdx - 1));
   $('.lightbox__next', lb).addEventListener('click', () => showLb(lbIdx + 1));
